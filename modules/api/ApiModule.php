@@ -1,6 +1,7 @@
 <?php
 
 namespace app\modules\api;
+use Yii;
 
 class ApiModule extends \yii\base\Module
 {
@@ -11,5 +12,14 @@ class ApiModule extends \yii\base\Module
         parent::init();
 
         // custom initialization code goes here
+    }
+
+    public function beforeAction($action){
+    	if (parent::beforeAction($action)){
+    		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 }

@@ -15,7 +15,7 @@ use Yii;
  * @property RoomHasUser[] $roomHasUsers
  * @property Room[] $rooms
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * @inheritdoc
@@ -72,5 +72,20 @@ class User extends \yii\db\ActiveRecord
     public function getRooms()
     {
         return $this->hasMany(Room::className(), ['id' => 'room_id'])->viaTable('{room_has_user}', ['user_id' => 'id']);
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    public static function findByUsername($username){
+        throw new Exception("Unsupported operation exception");
+        
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['fb_access_token' => $token]);
     }
 }

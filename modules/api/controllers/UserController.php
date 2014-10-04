@@ -28,5 +28,5 @@ class UserController extends \yii\web\Controller
        	$user = User::find()->where(['id' => $id])->one();
        	return $user->getAttributes();
     }
-
+    	
 }

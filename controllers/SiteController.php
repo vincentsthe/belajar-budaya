@@ -11,6 +11,7 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -58,7 +59,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new FacebookLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
@@ -93,4 +94,5 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
 }

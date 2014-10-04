@@ -15,7 +15,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\db\User',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -42,11 +42,6 @@ $config = [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
         ],
-        'response' => [
-            'format' => yii\web\Response::FORMAT_JSON,
-            'charset' => 'UTF-8',
-            // ...
-        ]
     ],
     'params' => $params,
     'modules' => [
