@@ -1,17 +1,18 @@
 <?php
 
-namespace app\models;
+namespace app\models\form;
 
 use Yii;
 use yii\base\Model;
+use app\models\db\User;
 
 /**
  * LoginForm is the model behind the login form.
  */
 class FacebookLoginForm extends Model
 {
-    public $facebook_id;
-    public $access_token;
+    public $fb_id;
+    public $fb_access_token;
     public $rememberMe = true;
 
     private $_user = false;
@@ -23,7 +24,7 @@ class FacebookLoginForm extends Model
     {
         return [
             // username and password are both required
-            [['facebook_id', 'access_token'], 'required'],
+            [['fb_id', 'fb_access_token'], 'required'],
         ];
     }
 
@@ -58,6 +59,14 @@ class FacebookLoginForm extends Model
         }
     }
 
+    public function loginByAccessToken(){
+        if ($this->validate()){
+            return Yii::$app->user->loginByAccessToken($this->fb_access_token);
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Finds user by [[username]]
      *
@@ -68,7 +77,6 @@ class FacebookLoginForm extends Model
         if ($this->_user === false) {
             $this->_user = User::findByUsername($this->username);
         }
-
         return $this->_user;
     }
 }
