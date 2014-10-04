@@ -86,7 +86,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return static::findOne(['fb_access_token' => $token]);
+        return static::find(['fb_access_token' => $token])->one();
     }
 
     public function getAuthKey(){

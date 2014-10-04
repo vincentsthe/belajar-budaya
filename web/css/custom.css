@@ -7,11 +7,12 @@
 }
 
 .navbar-default a:hover.navbar-brand {
-	color: white;
+	color: white !important;
 }
 
 .navbar-default a {
-	color: white;
+	color: white !important;
+	background-color: transparent;
 }
 
 .navbar-default .nav-pills a:hover {
@@ -33,3 +34,12 @@ a {
 a:hover {
 	color: #ff7f0e;
 }
+
+#header {
+	color: white;
+}
+
+#header a:hover{
+	color: #FF8306;
+}
+
