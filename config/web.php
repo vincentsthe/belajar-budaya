@@ -41,12 +41,17 @@ $config = [
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
+        ],
+        'response' => [
+            'format' => yii\web\Response::FORMAT_JSON,
+            'charset' => 'UTF-8',
+            // ...
         ]
     ],
     'params' => $params,
     'modules' => [
         'api' => [
-            'class' => 'app\modules\ApiModule',
+            'class' => 'app\modules\api\ApiModule',
         ],
     ],
 ];
