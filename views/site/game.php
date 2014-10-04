@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use app\assets\AppAsset;
+use app\assets\GameAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -13,14 +14,19 @@ GameAsset::register($this);
 <html ng-app="gemastikApp">
 	<head>
 		<title>Belajar Budaya</title>
+		<?= Html::csrfMetaTags() ?>
+    	<title><?= Html::encode($this->title) ?></title>
+    	<?php $this->head() ?>
 	</head>
 	<body ng-controller="GameController">
+
+		<?php $this->beginBody() ?>
 
 		<div class="navbar navbar-default navbar-static-top header" id="header">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand">
-					<img src="assets/img/header.png" height="30px" /></a>
+					<img src="<?= Yii::$app->request->baseUrl ?>/img/header.png" height="30px" /></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav nav-pills navbar-right" style="padding: 5px 0px 5px 0px">
@@ -39,7 +45,7 @@ GameAsset::register($this);
 				<div class="row">
 					<div class="col-md-3 question">
 						<h1 class="text-center guess">
-							<img width="150px" height="160px" src="assets/img/items/{{nama}}.jpg"/>
+							<img width="150px" height="160px" src="<?= Yii::$app->request->baseUrl ?>/img/items/{{nama}}.jpg"/>
 							<!--i class="fa fa-building"></i-->
 						</h1>
 						<h2><p class="text-center" style="font-family: 'Kameron', serif;">{{ nama }}</p></h2>
@@ -62,7 +68,7 @@ GameAsset::register($this);
 						<div ng-repeat="question in questions">
 							<div class="col-md-12" style="padding:20px 0px 20px 0px">
 							<div class="col-md-4">
-								<img src="assets/img/icons/{{question.category}}.png" width="75px" />
+								<img src="<?= Yii::$app->request->baseUrl ?>/img/icons/{{question.category}}.png" width="75px" />
 							</div>
 							<div class="col-md-8" style="padding:0px; margin:10px 0px 10px 0px;">
 								<p ng-class="{green: question.answered}" style="margin-bottom:0px;">
@@ -106,5 +112,6 @@ GameAsset::register($this);
 			</div>
 			</div>
 		</div>
+		<?php $this->endBody() ?>
 	</body>
 </html>

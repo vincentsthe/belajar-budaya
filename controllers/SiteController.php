@@ -96,6 +96,7 @@ class SiteController extends Controller
     }
 
     public function actionGame() {
+        $this->layout = 'plain';
         return $this->render('game');
     }
 }
