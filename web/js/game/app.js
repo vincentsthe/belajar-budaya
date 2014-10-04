@@ -1,0 +1,1 @@
+var gemastikApp = angular.module('gemastikApp', ['ngRoute', 'ngAnimate']);
