@@ -9,6 +9,14 @@ use yii\widgets\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php $form = ActiveForm::begin(); ?>
+<?= Html::activeHiddenInput($model,'fb_id',['value' => '10202363317745004']); ?>
+<?= Html::activeHiddenInput($model,'fb_access_token',['value' => 'CAAJ9qXJCFkEBALtDbieF0g6ZA5wF7SUdDZBilOvQVZAdqGoJ7sFZBO3PKtDhPYCn7oMDqmLaTzU13KQbpHEU7NCF16zY44ZAhJQXZBSZBoMZAwpR1mRVXOMR0a305MOZC9bg6cYNWmRU07zgoxRQZCmMOP7JZABbA2NO1UHcuxuSW510Q28ZAsOpS0lIK7FWg6NLaxzTgUZBHrwFzxSRpQzG0k5pV']); ?>
+<?= Html::submitButton('hello'); ?>
+<?php ActiveForm::end(); ?>
+<script type="text/javascript">
+  //location.reload();
+</script>
 <div class="site-login">
     <script type="text/javascript">
 // This is called with the results from from FB.getLoginStatus().

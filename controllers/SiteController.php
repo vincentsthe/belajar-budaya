@@ -6,8 +6,9 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
+use app\models\form\FacebookLoginForm;
 use app\models\ContactForm;
+
 
 class SiteController extends Controller
 {
@@ -60,9 +61,12 @@ class SiteController extends Controller
         }
 
         $model = new FacebookLoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->loginByAccessToken($model->fb_access_token)) {
+            var_dump($model->getAttributes()); 
             return $this->goBack();
+            exit();
         } else {
+            var_dump($model->getAttributes()); 
             return $this->render('login', [
                 'model' => $model,
             ]);
