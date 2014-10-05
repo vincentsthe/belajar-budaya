@@ -30,11 +30,11 @@ GameAsset::register($this);
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav nav-pills navbar-right" style="padding: 5px 0px 5px 0px">
-						<li><a href="#/menu"><i class="fa fa-home"></i> Home</a></li>
-						<li><a href="#/additem"><i class="fa fa-plus"></i>Add Item</a></li>
+						<li><a href="<?= \Yii::$app->urlManager->createUrl(['site/home']); ?>"><i class="fa fa-home"></i> Home</a></li>
+						<li><a href="<?= \Yii::$app->urlManager->createUrl(['site/additem']); ?>"><i class="fa fa-plus"></i>Add Item</a></li>
 						<!--li><a href=""><i class="fa fa-trophy"></i> Achievement</a></li>
 						<li><a href=""><i class="fa fa-list-ol"></i>Rank</a></li-->
-						<li><a href="#/login"><i class="fa fa-sign-out"></i>Logout</a></li>
+						<li><a href="<?= \Yii::$app->urlManager->createUrl(['site/logout']); ?>"><i class="fa fa-sign-out"></i>Logout</a></li>
 					</ul>
 				</div>
 			</div>

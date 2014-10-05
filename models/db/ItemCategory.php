@@ -51,4 +51,21 @@ class ItemCategory extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Item::className(), ['item_category_id' => 'id']);
     }
+
+    /**
+     * This function return array of id=>categoryName
+     * for dropdownlist purpose
+     * 
+     * @return \app\models\db\ItemCategory[]
+     */
+    public function getCategories() {
+        $categories = ItemCategory::find()->all();
+
+        $return = [];
+        foreach($categories as $category) {
+            $return[$category->id] = $category->name;
+        }
+
+        return $return;
+    }
 }

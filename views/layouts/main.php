@@ -37,8 +37,8 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right','style' => 'padding: 5px 0px 5px 0px;'],
                 'items' => [
-                    ['label' => '<i class="fa fa-home"></i> Home', 'url' => ['/site/index']],
-                    ['label' => '<i class="fa fa-plus"></i> Add Item', 'url' => ['/site/about']],
+                    ['label' => '<i class="fa fa-home"></i> Home', 'url' => ['/site/home']],
+                    ['label' => '<i class="fa fa-plus"></i> Add Item', 'url' => ['/site/additem']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->fb_id . ')',
@@ -51,9 +51,6 @@ AppAsset::register($this);
         ?>
 
         <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
             <?= $content ?>
         </div>
     </div>

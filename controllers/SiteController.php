@@ -5,9 +5,14 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
+use app\models\db\Item;
+use app\models\db\ItemCategory;
 use app\models\form\FacebookLoginForm;
 use app\models\ContactForm;
+use app\models\form\ItemForm;
+use app\models\factory\ItemFactory;
 
 
 class SiteController extends Controller
@@ -100,5 +105,37 @@ class SiteController extends Controller
     public function actionGame() {
         $this->layout = 'plain';
         return $this->render('game');
+    }
+
+    public function actionHome() {
+        return $this->render('home');
+    }
+
+    public function actionWiki() {
+        return $this->render('wiki');
+    }
+
+    public function actionAdditem() {
+        $model = new ItemForm();
+        $categories = ItemCategory::getCategories();
+
+        if((Yii::$app->request->isPost) && ($model->load(Yii::$app->request->post()))) {
+            $model->gambar = UploadedFile::getInstance($model, 'gambar');
+
+            if($model->validate()) {
+                $item = ItemFactory::createItemFromItemForm($model);
+
+                if($item->save()) {
+                    Yii::$app->session->setFlash('success', 'Data berhasil dikirimkan.');
+                    $model->gambar->saveAs('uploads/' . $model->gambar->baseName . '.' . $model->gambar->extension);
+                    $model = new ItemForm();
+                }
+            }
+        }
+
+        return $this->render('additem', [
+            'model' => $model,
+            'categories' => $categories,
+        ]);
     }
 }
