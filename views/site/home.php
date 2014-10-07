@@ -36,31 +36,13 @@
 			</div>
 			<div class="col-md-3 col-md-offset-1" style="background-color: #f0ad4e; border-radius:10px;">
 				<h3 class="title">Top Skor</h3>
+				<?php foreach($ranks as $rank):?>
 				<div class="col-md-12 top-scorer">
 					<div class="top-scorer-p"><img src="<?= Yii::$app->request->baseUrl ?>/img/vincent.jpg" class="player-img" width="40px"/></div>
-					<b><div class="top-scorer-n">vincent</div>
-					<div class="top-scorer-s">1000</div></b>
+					<b><div class="top-scorer-n"><?=$rank->fb_id; ?></div>
+					<div class="top-scorer-s"><?=$rank->score; ?></div></b>
 				</div>
-				<div class="col-md-12 top-scorer">
-					<div class="top-scorer-p"><img src="<?= Yii::$app->request->baseUrl ?>/img/yafi.jpg" class="player-img" width="40px"/></div>
-					<b><div class="top-scorer-n">yafi</div>
-					<div class="top-scorer-s">900</div></b>
-				</div>
-				<div class="col-md-12 top-scorer">
-					<div class="top-scorer-p"><img src="<?= Yii::$app->request->baseUrl ?>/img/rosi.jpg" class="player-img" width="40px"/></div>
-					<b><div class="top-scorer-n">rosi</div>
-					<div class="top-scorer-s">800</div></b>
-				</div>
-				<div class="col-md-12 top-scorer">
-					<div class="top-scorer-p"><img src="<?= Yii::$app->request->baseUrl ?>/img/william.jpg" class="player-img" width="40px"/></div>
-					<b><div class="top-scorer-n">william</div>
-					<div class="top-scorer-s">750</div></b>
-				</div>
-				<div class="col-md-12 top-scorer">
-					<div class="top-scorer-p"><img src="<?= Yii::$app->request->baseUrl ?>/img/rama.jpg" class="player-img" width="40px"/></div>
-					<b><div class="top-scorer-n">rama</div>
-					<div class="top-scorer-s">700</div></b>
-				</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>

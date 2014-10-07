@@ -12,14 +12,15 @@ use app\models\db\Item;
  */
 class ItemSearch extends Item
 {
+    public $keyword;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'item_category_id', 'is_valid'], 'integer'],
-            [['name', 'description', 'image_url'], 'safe'],
+            [['keyword'], 'string'],
+            //[['keyword'], 'safe']
         ];
     }
 
@@ -51,15 +52,7 @@ class ItemSearch extends Item
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'item_category_id' => $this->item_category_id,
-            'is_valid' => $this->is_valid,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'image_url', $this->image_url]);
+        $query->andFilterWhere(['like', 'name', $this->keyword]);
 
         return $dataProvider;
     }

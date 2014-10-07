@@ -13,6 +13,7 @@ use app\models\form\FacebookLoginForm;
 use app\models\ContactForm;
 use app\models\form\ItemForm;
 use app\models\factory\ItemFactory;
+use app\models\db\User;
 
 
 class SiteController extends Controller
@@ -109,7 +110,12 @@ class SiteController extends Controller
 
     public function actionHome() {
         $items = Item::find()->limit(3)->all();
-        return $this->render('home',['items' => $items]);
+        $ranks = User::find()->orderBy(['score' => SORT_DESC])->limit(5)->all();
+
+        return $this->render('home',[
+            'items' => $items,
+            'ranks' => $ranks,
+        ]);
     }
 
     public function actionWiki() {

@@ -28,6 +28,7 @@ class ItemController extends Controller
 
     /**
      * Lists all Item models.
+     * @param string $q search query
      * @return mixed
      */
     public function actionIndex()
@@ -50,6 +51,7 @@ class ItemController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel' => new ItemSearch(),
         ]);
     }
 
