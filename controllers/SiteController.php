@@ -117,7 +117,7 @@ class SiteController extends Controller
 
     public function actionAdditem() {
         $model = new ItemForm();
-        $categories = ItemCategory::getCategories();
+        $categories = ItemCategory::find()->all();
 
         if((Yii::$app->request->isPost) && ($model->load(Yii::$app->request->post()))) {
             $model->gambar = UploadedFile::getInstance($model, 'gambar');

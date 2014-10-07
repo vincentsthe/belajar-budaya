@@ -1,6 +1,8 @@
 <?php
 	use yii\widgets\ActiveForm;
 	use app\assets\CkeditorAsset;
+	use yii\helpers\ArrayHelper;
+
 ?>
 <?php
 	CkeditorAsset::register($this);
@@ -26,7 +28,7 @@
 			
 			<?= $form->field($model, 'gambar')->fileInput(['id'=>'gambar', 'class'=>'form-control']); ?>
 
-			<?= $form->field($model, 'kategori')->dropDownList($categories, ['prompt' => 'Pilih Kategori', 'style'=>'border-radius:0px;']); ?>
+			<?= $form->field($model, 'kategori')->dropDownList(ArrayHelper::map($categories,'id','name'), ['prompt' => 'Pilih Kategori', 'style'=>'border-radius:0px;']); ?>
 
 			<?= $form->field($model, 'deskripsi')->textArea(['rows' => 2,'class'=>'ckeditor', 'style'=>'border-radius:0px;']); ?>
 			

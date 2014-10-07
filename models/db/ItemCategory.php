@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "item_category".
  *
  * @property integer $id
- * @property integer $name
+ * @property string $name
  *
  * @property Item[] $items
  */
@@ -29,7 +29,8 @@ class ItemCategory extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'name'], 'required'],
-            [['id', 'name'], 'integer']
+            [['id'], 'integer'],
+            [['name'], 'string', 'max' => 100]
         ];
     }
 
