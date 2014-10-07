@@ -8,7 +8,6 @@ gemastikApp.factory('UrlFactory', function() {
 		 * expected JSON response format:
 		 * {
 		 *		nama: string 			// name of the question item
-		 *		timeRemaining: integer	// time remaining to answer the question for the item
 		 *		pertanyaan: JSON Object // key-value item of question: answer
 		 *		{
 		 *			question: answer 	// item question and answer of the question, will have multiple of this key-value for pertanyaan object
@@ -17,6 +16,18 @@ gemastikApp.factory('UrlFactory', function() {
 		 */
 		getProblem: function(roomNumber) {
 			return baseUrl + "/api/problem/get/" + roomNumber;
+		},
+
+		/**
+		 *	Send a GET request to server to retireve remaining time left for the current problem.
+		 * 
+		 * expected JSON response format:
+		 * {
+		 *		timeRemaining: integer		//remaining problem for the current problem
+		 * }
+		 */
+		getTimeRemaining: function(roomNumber) {
+			return baseUrl + "/api/problem/time/" + roomNumber;
 		},
 
 		/**
@@ -54,7 +65,19 @@ gemastikApp.factory('UrlFactory', function() {
 		 */
 		getAnswer: function(roomNumber) {
 			return baseUrl + "/api/problem/getAnswer/" + roomNumber;	//get user answer
-		}
+		}.
+
+		/**
+		 * Send a get request to retrieve the username of the current active user.
+		 * 
+		 * Expected JSON response format:
+		 * {
+		 *		username: string		// the username of the current user.
+		 * }
+		 */
+		getUsername: function() {
+			return baseUrl + "/api/user"
+		},
 		
 	};
 
