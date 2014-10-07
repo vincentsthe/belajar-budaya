@@ -1,3 +1,6 @@
+<?php
+	use yii\helpers\Html;
+?>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -13,24 +16,14 @@
 			<div class="col-md-4">
 				<h3 class="title">Wiki</h3>
 				<div>
-					<a href="<?= \Yii::$app->urlManager->createUrl(['site/wiki']); ?>">
+					<?php 
+					foreach($items as $item): ?>
 						<div class="menu-box" style="background-color: #A8FFA4">
-							<img src="<?= Yii::$app->request->baseUrl ?>/img/items/Borobudur.jpg" style="height:70px;float:left;border-radius:10px;">
-							<h3 style="float:left" style="font-family: 'Kameron', serif;">&nbsp;Borobudur</h3>
+						<?= Html::img(Yii::$app->request->baseUrl."/img/items/$item->image_url",['style' => 'height:70px;float:left;border-radius:10px;']); ?>
+							<?= Html::a("<h3 style='float:left' style='font-family: 'Kameron', serif;'>&nbsp; $item->name </h3>",['wiki/view','id' => $item->id]); ?>
 						</div>
-					</a>
-					<a href="<?= \Yii::$app->urlManager->createUrl(['site/wiki']); ?>">
-						<div class="menu-box" style="background-color: #68C678">
-							<img src="<?= Yii::$app->request->baseUrl ?>/img/items/Prambanan.jpg" style="height:70px;float:left;border-radius:10px;">
-							<h3 style="float:left" style="font-family: 'Kameron', serif;">&nbsp;Prambanan</h3>
-						</div>
-					</a>
-					<a href="<?= \Yii::$app->urlManager->createUrl(['site/wiki']); ?>">
-						<div class="menu-box" style="background-color:  #A8FFA4">
-							<img src="<?= Yii::$app->request->baseUrl ?>/img/items/Gedung Sate.jpg" style="height:70px;float:left;border-radius:10px;">
-							<h3 style="float:left" style="font-family: 'Kameron', serif;">&nbsp;Gedung Sate</h3>
-						</div>
-					</a>
+					<?php endforeach;
+					?>
 				</div>
 				<center>
 					<a href="<?= \Yii::$app->urlManager->createUrl(['site/game']); ?>" id="play-link">

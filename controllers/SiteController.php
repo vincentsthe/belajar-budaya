@@ -108,7 +108,8 @@ class SiteController extends Controller
     }
 
     public function actionHome() {
-        return $this->render('home');
+        $items = Item::find()->limit(3)->all();
+        return $this->render('home',['items' => $items]);
     }
 
     public function actionWiki() {

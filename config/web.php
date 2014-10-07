@@ -41,6 +41,9 @@ $config = [
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
+            'rules' => [
+                'wiki/<action>' => 'item/<action>',
+            ]
         ],
     ],
     'params' => $params,
