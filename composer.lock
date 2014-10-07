@@ -365,12 +365,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "9359e595d8649804946c039ac6ff6916948a5320"
+                "reference": "613354e08fbddce0943646932b007be9873c658f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/9359e595d8649804946c039ac6ff6916948a5320",
-                "reference": "9359e595d8649804946c039ac6ff6916948a5320",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/613354e08fbddce0943646932b007be9873c658f",
+                "reference": "613354e08fbddce0943646932b007be9873c658f",
                 "shasum": ""
             },
             "require": {
@@ -409,7 +409,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2014-09-26 11:48:15"
+            "time": "2014-10-05 19:53:07"
         },
         {
             "name": "yiisoft/yii2",
@@ -417,12 +417,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "5605194283ef12cdb11c47001f1b5d217df62293"
+                "reference": "4c92804264f1401d8d3f1e5610eca971e6fd567e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5605194283ef12cdb11c47001f1b5d217df62293",
-                "reference": "5605194283ef12cdb11c47001f1b5d217df62293",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/4c92804264f1401d8d3f1e5610eca971e6fd567e",
+                "reference": "4c92804264f1401d8d3f1e5610eca971e6fd567e",
                 "shasum": ""
             },
             "require": {
@@ -497,7 +497,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-10-03 20:36:55"
+            "time": "2014-10-07 07:18:08"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -761,12 +761,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-codeception.git",
-                "reference": "e47cb29fce1b6f54c56736017b1ee62c694d063d"
+                "reference": "1688c5e363aca8d8ef738e4e4391df812a2565aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-codeception/zipball/e47cb29fce1b6f54c56736017b1ee62c694d063d",
-                "reference": "e47cb29fce1b6f54c56736017b1ee62c694d063d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-codeception/zipball/1688c5e363aca8d8ef738e4e4391df812a2565aa",
+                "reference": "1688c5e363aca8d8ef738e4e4391df812a2565aa",
                 "shasum": ""
             },
             "require": {
@@ -798,7 +798,7 @@
                 "codeception",
                 "yii2"
             ],
-            "time": "2014-09-28 05:44:31"
+            "time": "2014-10-06 20:04:59"
         },
         {
             "name": "yiisoft/yii2-debug",
@@ -900,12 +900,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "16f1cda56308b40c6bc96ace0507dbcf391096d3"
+                "reference": "e229a5f4422ed26f5f5cfb781531ab161de367eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/16f1cda56308b40c6bc96ace0507dbcf391096d3",
-                "reference": "16f1cda56308b40c6bc96ace0507dbcf391096d3",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/e229a5f4422ed26f5f5cfb781531ab161de367eb",
+                "reference": "e229a5f4422ed26f5f5cfb781531ab161de367eb",
                 "shasum": ""
             },
             "require": {
@@ -941,7 +941,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2014-10-03 13:49:54"
+            "time": "2014-10-06 21:13:17"
         }
     ],
     "aliases": [
@@ -951,6 +951,7 @@
     "stability-flags": [
 
     ],
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.4.0"
     },

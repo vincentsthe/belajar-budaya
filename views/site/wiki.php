@@ -1,7 +1,3 @@
-<?php
-	use Yii;
-?>
-
 <div class="container">
 	<div class="col-md-12" style="padding: 50px 0px 0px 0px">
 		
