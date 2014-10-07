@@ -1,9 +1,12 @@
 <?php
 	use yii\widgets\ActiveForm;
+	use app\assets\CkeditorAsset;
 ?>
-
+<?php
+	CkeditorAsset::register($this);
+?>
 <div class="container">
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-md-10 col-md-offset-1">
 		<?php if(Yii::$app->session->hasFlash('success')): ?>
 			<br>
 			<div class="alert alert-success">
@@ -20,12 +23,12 @@
 		]); ?>
 
 			<?= $form->field($model, 'nama')->textInput(['maxLength' => 100]); ?>
-
-			<?= $form->field($model, 'deskripsi')->textArea(['rows' => 2, 'style'=>'border-radius:0px;']); ?>
 			
 			<?= $form->field($model, 'gambar')->fileInput(['id'=>'gambar', 'class'=>'form-control']); ?>
 
 			<?= $form->field($model, 'kategori')->dropDownList($categories, ['prompt' => 'Pilih Kategori', 'style'=>'border-radius:0px;']); ?>
+
+			<?= $form->field($model, 'deskripsi')->textArea(['rows' => 2,'class'=>'ckeditor', 'style'=>'border-radius:0px;']); ?>
 			
 			<div class="form-group">
 				<center><button class="btn btn-success">Simpan!</button></center>

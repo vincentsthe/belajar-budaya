@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c849a7d22b216b94a11630f997cb9690",
+    "hash": "0b6b49f13d0923c2b0e3a65b6fb66921",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -266,6 +266,47 @@
             "time": "2014-03-05 16:30:51"
         },
         {
+            "name": "ckeditor/ckeditor",
+            "version": "4.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ckeditor/ckeditor-releases.git",
+                "reference": "68cc6ad041e5268fd0d1445802a7d6a6ce6e1802"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor-releases/zipball/68cc6ad041e5268fd0d1445802a7d6a6ce6e1802",
+                "reference": "68cc6ad041e5268fd0d1445802a7d6a6ce6e1802",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+",
+                "LGPL-2.1+",
+                "MPL-1.1+"
+            ],
+            "authors": [
+                {
+                    "name": "CKSource",
+                    "homepage": "http://cksource.com"
+                }
+            ],
+            "description": "JavaScript WYSIWYG web text editor.",
+            "homepage": "http://ckeditor.com",
+            "keywords": [
+                "CKEditor",
+                "editor",
+                "fckeditor",
+                "html",
+                "javascript",
+                "richtext",
+                "text",
+                "wysiwyg"
+            ],
+            "time": "2014-09-25 13:15:55"
+        },
+        {
             "name": "ezyang/htmlpurifier",
             "version": "v4.6.0",
             "source": {
@@ -417,12 +458,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "4c92804264f1401d8d3f1e5610eca971e6fd567e"
+                "reference": "8bfcdee3811a21b0c767d8bb229656adb56e7f47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/4c92804264f1401d8d3f1e5610eca971e6fd567e",
-                "reference": "4c92804264f1401d8d3f1e5610eca971e6fd567e",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/8bfcdee3811a21b0c767d8bb229656adb56e7f47",
+                "reference": "8bfcdee3811a21b0c767d8bb229656adb56e7f47",
                 "shasum": ""
             },
             "require": {
@@ -497,7 +538,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-10-07 07:18:08"
+            "time": "2014-10-07 08:18:02"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -505,12 +546,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "9b8ca6d43cf82c6a771461fbfa78db02fa0f95cf"
+                "reference": "cbd7c0da6c5f9acd82b6404104d573fd2adddc4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/9b8ca6d43cf82c6a771461fbfa78db02fa0f95cf",
-                "reference": "9b8ca6d43cf82c6a771461fbfa78db02fa0f95cf",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/cbd7c0da6c5f9acd82b6404104d573fd2adddc4d",
+                "reference": "cbd7c0da6c5f9acd82b6404104d573fd2adddc4d",
                 "shasum": ""
             },
             "require": {
@@ -543,7 +584,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2014-10-03 13:39:50"
+            "time": "2014-10-04 21:51:34"
         },
         {
             "name": "yiisoft/yii2-composer",
