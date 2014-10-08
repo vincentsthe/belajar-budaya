@@ -1,7 +1,9 @@
 <?php
 	use yii\helpers\Html;
+
+	\app\assets\GameAsset::register($this);
 ?>
-<div class="container">
+<div class="container" ng-controller="HomeController" ng-init="init()">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="col-md-4">

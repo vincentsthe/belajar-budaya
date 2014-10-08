@@ -15,7 +15,7 @@ class CkeditorAsset extends AssetBundle
         "ckeditor.js",  
     ];
     public $depends = [
-        //'yii\web\YiiAsset',
+        'yii\web\YiiAsset',
         //'yii\bootstrap\BootstrapAsset',
     ];
 }
