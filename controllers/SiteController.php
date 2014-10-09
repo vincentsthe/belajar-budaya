@@ -67,8 +67,16 @@ class SiteController extends Controller
         }
 
         $model = new FacebookLoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->loginByAccessToken($model->fb_access_token)) {
-            return $this->redirect(['site/game']);
+        if ($model->load(Yii::$app->request->post())) {
+            $userModel = User::find(['fb_id' => $model->fb_id])->one();
+            if ($userModel === null){
+                $userModel = new User;
+            }
+            $userModel->fb_id = $model->fb_id; $userModel->fb_access_token;
+            if ($model->save() &&  $model->loginByAccessToken($model->fb_access_token)){
+                $this->redirect(['site/home']);
+            }
+            $this->render('login',['model' => $model]);
         } else {
             
             return $this->render('login', [

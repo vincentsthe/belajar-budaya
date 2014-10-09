@@ -1,7 +1,7 @@
 <?php
 	use yii\helpers\Html;
 
-	\app\assets\GameAsset::register($this);
+	\app\assets\HomeAsset::register($this);
 ?>
 <div class="container" ng-controller="HomeController" ng-init="init()">
 	<div class="row">
@@ -36,15 +36,13 @@
 				</a>
 				</center>
 			</div>
-			<div class="col-md-3 col-md-offset-1" style="background-color: #f0ad4e; border-radius:10px;">
+			<div class="col-md-4" style="background-color: #f0ad4e; border-radius:10px;">
 				<h3 class="title">Top Skor</h3>
-				<?php foreach($ranks as $rank):?>
-				<div class="col-md-12 top-scorer">
-					<div class="top-scorer-p"><img src="<?= Yii::$app->request->baseUrl ?>/img/vincent.jpg" class="player-img" width="40px"/></div>
-					<b><div class="top-scorer-n"><?=$rank->fb_id; ?></div>
-					<div class="top-scorer-s"><?=$rank->score; ?></div></b>
+				<div class="col-md-12 top-scorer" ng-repeat="user in topUsers">
+					<div class="top-scorer-p"><img src="{{user.picture_url}}" class="player-img" width="40px"/></div>
+					<b><div class="top-scorer-n">{{user.name}}</div>
+					<div class="top-scorer-s">{{user.score}}</div></b>
 				</div>
-				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>

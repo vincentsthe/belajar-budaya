@@ -24,7 +24,7 @@ AppAsset::register($this);
 <body>
 
 <?php $this->beginBody() ?>
-    <div class="wrap">
+    <div class="wrap" ng-controller="SiteController" ng-init="init()">
         <?php
             NavBar::begin([
                 'brandLabel' => Html::img("@web/img/header.png"),
@@ -41,7 +41,7 @@ AppAsset::register($this);
                     ['label' => '<i class="fa fa-plus"></i> Add Item', 'url' => ['/site/additem']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->fb_id . ')',
+                        ['label' => 'Logout ({{activeUser.name}})',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
                 ],
@@ -64,5 +64,6 @@ AppAsset::register($this);
 
 <?php $this->endBody() ?>
 </body>
+
 </html>
 <?php $this->endPage() ?>

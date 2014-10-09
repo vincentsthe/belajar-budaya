@@ -21,11 +21,16 @@ class AppAsset extends AssetBundle
         'css/font-awesome.min.css',
         'css/custom.css',
         'css/main.css',
+
     ];
     public $js = [
+        'js/game/controller/SiteController.js',
+        'js/game/service/FBService.js',
+        'js/game/service/ApiService.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'app\assets\AngularAsset',
     ];
 }

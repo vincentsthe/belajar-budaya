@@ -79,4 +79,18 @@ class FacebookLoginForm extends Model
         }
         return $this->_user;
     }
+
+    public function save(){
+        $userModel = User::find(['fb_id' => $this->fb_id])->one();
+
+        if ($userModel === null){
+            $userModel = new User;
+        }
+        $userModel->fb_id = $this->fb_id; $userModel->fb_access_token = $this->fb_access_token;
+        if ($userModel->save()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -11,7 +11,7 @@ class AngularAsset extends AssetBundle
     public $css = [
     ];
     public $js = [
-        'js/game/main.js',
+        //'js/game/main.js',
         'js/game/angular.min.js',
         'js/game/angular-route.min.js',
         'js/game/angular-animate.min.js',

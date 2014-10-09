@@ -2,6 +2,7 @@
 
 namespace app\models\db;
 
+use app\models\db\User;
 use Yii;
 
 /**
@@ -31,10 +32,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['fb_access_token', 'email'], 'required'],
-            [['fb_access_token'], 'string', 'max' => 200],
-            [['email'], 'string', 'max' => 100],
-            [['email'], 'unique']
+            [['fb_access_token', 'fb_id'], 'required'],
+            [['fb_access_token'], 'string', 'max' => 500],
+            [['fb_id'],'string','max' => 100],
+            [['score'],'integer'],
         ];
     }
 
@@ -46,7 +47,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return [
             'id' => 'ID',
             'fb_access_token' => 'Fb Access Token',
-            'email' => 'Email',
+            'fb_id' => 'Facebook Id',
+            'score' => 'Skor'
         ];
     }
 
@@ -100,4 +102,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getId(){
     	return $this->id;
     }
+
+    
 }
