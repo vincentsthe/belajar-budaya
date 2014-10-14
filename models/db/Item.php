@@ -50,9 +50,9 @@ class Item extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'description' => 'Description',
-            'image_url' => 'Image Url',
-            'item_category_id' => 'Item Category ID',
+            'description' => 'Deskripsi',
+            'image_url' => 'Gambar',
+            'item_category_id' => 'Category',
         ];
     }
 
