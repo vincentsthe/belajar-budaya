@@ -65,7 +65,7 @@ gemastikApp.factory('UrlFactory', function() {
 		 */
 		getAnswer: function(roomNumber) {
 			return baseUrl + "/api/problem/getAnswer/" + roomNumber;	//get user answer
-		}.
+		},
 
 		/**
 		 * Send a get request to retrieve the username of the current active user.

@@ -1,5 +1,5 @@
 
-gemastikApp.factory('ApiService', function($http,$q) {
+gemastikApp.factory('ApiService', ['$http', '$q', 'UrlFactory', function($http,$q, UrlFactory) {
 	var apiUrl = '/belajar-budaya/web/index.php/api';
 
 	return {
@@ -32,6 +32,17 @@ gemastikApp.factory('ApiService', function($http,$q) {
 			});
 
 			return result.promise;
+		},
+
+		getAnswer: function() {
+			var result = $q.defer();
+
+			$http.get(apiUrl + "/answer/get")
+				.then(function(response) {
+					result.resolve(response.data);
+				});
+
+			return result.promise;
 		}
 	}
-});
+}]);

@@ -1,87 +1,69 @@
-gemastikApp.controller('GameController', ['$scope', '$interval', 'ProblemFactory', 'AIFactory', 
-								function($scope, $interval, ProblemFactory, AIFactory) {
+var getDivHeight = function() {
+	var windowHeight = parseInt($(window).height());
+	var headerHeight = parseInt($("#header").outerHeight());
+	var footerHeight = parseInt($("#footer").outerHeight());
+	var paddingTop = parseInt($("#chatDiv").css('padding-top'));
+	var paddingBottom = parseInt($("#chatDiv").css('padding-bottom'));
 
-	$scope.tes = 1;
+	var height = windowHeight - headerHeight - footerHeight - paddingTop - paddingBottom;
+	return height + "px";
+};
+
+var createAnswer = function(answer) {
+	var tr = document.createElement("tr");
+	var td = document.createElement("td");
+
+	if(answer.result) {
+		td.setAttribute("class", "green");
+	} else {
+		td.setAttribute("class", "red");
+	}
+	tr.appendChild(td);
+	td.appendChild(document.createTextNode(answer.user + ": " + answer.answer));
+	document.getElementById("table").getElementsByTagName("tbody")[0].appendChild(tr);
+
+	var elem = document.getElementById('chatDiv');
+  	elem.scrollTop = elem.scrollHeight;
+};
+
+gemastikApp.controller('GameController', ['$scope', '$interval', 'GameService',
+								function($scope, $interval, GameService) {
+	var roomNumber = 3;
+	var timeRemaining = GameService.getTimeRemaining(roomNumber);
+
 	$scope.score = 0;
+	$scope.timeLeft = timeRemaining;
 
-	var getDivHeight = function() {
-		var windowHeight = parseInt($(window).height());
-		var headerHeight = parseInt($("#header").outerHeight());
-		var footerHeight = parseInt($("#footer").outerHeight());
-		var paddingTop = parseInt($("#chatDiv").css('padding-top'));
-		var paddingBottom = parseInt($("#chatDiv").css('padding-bottom'));
-
-		var height = windowHeight - headerHeight - footerHeight - paddingTop - paddingBottom;
-		return height + "px";
-	};
+	var interval = $interval(function() {
+		changeQuestion();
+	}, (timeRemaining*1000)+100);
+	
 	$("#chatDiv").height(getDivHeight());
 	
 	$scope.submitAnswer = function() {
-		var ada = false;
-		for(var i=0 ; i<$scope.questions.length ; i++) {
-			if(($scope.questions[i].answer.toLowerCase() === $scope.answer.toLowerCase()) && ($scope.questions[i].answered === false)) {
-				$scope.questions[i].answered = true;
-				ada = true;
-			}
-		}
-
-		var tr = document.createElement("tr");
-		var td = document.createElement("td");
-		if(ada) {
-			td.setAttribute("class", "green");
-			$scope.score++;
-		} else {
-			td.setAttribute("class", "red");
-		}
-		tr.appendChild(td);
-		td.appendChild(document.createTextNode("Vincent: " + $scope.answer + ""));
-		document.getElementById("table").getElementsByTagName("tbody")[0].appendChild(tr);
-
+		GameService.sendAnswer(roomNumber, $scope.answer.toLowerCase());
 		$scope.answer = "";
-
-		var elem = document.getElementById('chatDiv');
-  		elem.scrollTop = elem.scrollHeight;
-	};
-
-	var submitAIAnswer = function(str) {
-		var ada = false;
-		for(var i=0 ; i<$scope.questions.length ; i++) {
-			if(($scope.questions[i].answer.toLowerCase() === str.toLowerCase()) && ($scope.questions[i].answered === false)) {
-				$scope.questions[i].answered = true;
-				ada = true;
-			}
-		}
-
-		var tr = document.createElement("tr");
-		var td = document.createElement("td");
-		if(ada) {
-			td.setAttribute("class", "green");
-		} else {
-			td.setAttribute("class", "red");
-		}
-		tr.appendChild(td);
-		td.appendChild(document.createTextNode("Yafi: " + str + ""));
-		document.getElementById("table").getElementsByTagName("tbody")[0].appendChild(tr);
-
-		var elem = document.getElementById('chatDiv');
-  		elem.scrollTop = elem.scrollHeight;
 	};
 
 	$interval(function() {
-		submitAIAnswer(AIFactory.getString());
-	}, 2000);
+		var answers = GameService.getAnswer(roomNumber);
+
+		answers.foreach(function(answer) {
+			createAnswer(answer);
+		});
+	}, 300);
 
 	changeQuestion = function() {
-		$scope.timeLeft = 7;
-		var interval = $interval(function() {
-			$scope.timeLeft = $scope.timeLeft-1;
-			if($scope.timeLeft == 0) {
-				$interval.cancel(interval);
-				changeQuestion();
-			}
-		}, 1000);
+		$interval.cancel(interval);
 
-		var question = ProblemFactory.getProblem();
+		timeRemaining = GameService.getTimeRemaining(roomNumber);
+		$scope.timeLeft = timeRemaining;
+
+		var interval = $interval(function() {
+			changeQuestion();
+		}, (timeRemaining*1000)+100);
+
+		var question = GameService.getProblem(roomNumber);
 		$scope.questions = [];
 
 		for(var category in question['pertanyaan']) {

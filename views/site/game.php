@@ -84,6 +84,11 @@ GameAsset::register($this);
 					</div>
 					<div class="col-md-5 text-table" id="chatDiv">
 						<table class="table" id="table">
+							<tr ng-repeat="answer in answers">
+								<td ng-class>
+
+								</td>
+							</tr>
 							<tr>
 								<td>
 									Vincent masuk ke ruangan.
