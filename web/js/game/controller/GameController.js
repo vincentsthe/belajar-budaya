@@ -29,54 +29,60 @@ var createAnswer = function(answer) {
 gemastikApp.controller('GameController', ['$scope', '$interval', 'GameService',
 								function($scope, $interval, GameService) {
 	var roomNumber = 3;
-	var timeRemaining = GameService.getTimeRemaining(roomNumber);
+	var timeRemaining;
+
+	GameService.getTimeRemaining(roomNumber).then(function(time) {
+		timeRemaining = time;
+		$scope.timeLeft = timeRemaining;
+
+		var interval = $interval(function() {
+			changeQuestion();
+		}, (timeRemaining*1000)+100);
+	});
 
 	$scope.score = 0;
-	$scope.timeLeft = timeRemaining;
-
-	var interval = $interval(function() {
-		changeQuestion();
-	}, (timeRemaining*1000)+100);
 	
 	$("#chatDiv").height(getDivHeight());
 	
 	$scope.submitAnswer = function() {
-		GameService.sendAnswer(roomNumber, $scope.answer.toLowerCase());
-		$scope.answer = "";
+		GameService.sendAnswer(roomNumber, $scope.answer.toLowerCase()).then(function(data) {
+			$scope.answer = "";
+		});
 	};
 
 	$interval(function() {
-		var answers = GameService.getAnswer(roomNumber);
-
-		answers.foreach(function(answer) {
-			createAnswer(answer);
+		GameService.getAnswer(roomNumber).then(function(answers) {
+			answers.foreach(function(answer) {
+				createAnswer(answer);
+			});
 		});
 	}, 300);
 
 	changeQuestion = function() {
 		$interval.cancel(interval);
 
-		timeRemaining = GameService.getTimeRemaining(roomNumber);
-		$scope.timeLeft = timeRemaining;
+		GameService.getTimeRemaining(roomNumber).then(function(timeRemaining) {
+			$scope.timeLeft = timeRemaining;
 
-		var interval = $interval(function() {
-			changeQuestion();
-		}, (timeRemaining*1000)+100);
+			var interval = $interval(function() {
+				changeQuestion();
+			}, (timeRemaining*1000)+100);
 
-		var question = GameService.getProblem(roomNumber);
-		$scope.questions = [];
+			GameService.getProblem(roomNumber).then(function(question) {
+				$scope.questions = [];
 
-		for(var category in question['pertanyaan']) {
-			$scope.questions.push({
-				'category': category,
-				'answer': question['pertanyaan'][category],
-				'answered': false,
+				for(var category in question['pertanyaan']) {
+					$scope.questions.push({
+						'category': category,
+						'answer': question['pertanyaan'][category],
+						'answered': false,
+					});
+				}
+
+				$scope.nama = question.nama;
 			});
-		}
-
-		$scope.nama = question.nama;
+		});
 	}
-	changeQuestion();
 
 
 }]);

@@ -15,7 +15,7 @@ gemastikApp.factory('UrlFactory', function() {
 		 * }
 		 */
 		getProblem: function(roomNumber) {
-			return baseUrl + "/api/problem/get/" + roomNumber;
+			return baseUrl + "/api/problem/get?room_id=" + roomNumber;
 		},
 
 		/**
@@ -27,7 +27,7 @@ gemastikApp.factory('UrlFactory', function() {
 		 * }
 		 */
 		getTimeRemaining: function(roomNumber) {
-			return baseUrl + "/api/problem/time/" + roomNumber;
+			return baseUrl + "/api/problem/time?room_id=" + roomNumber;
 		},
 
 		/**
@@ -39,7 +39,7 @@ gemastikApp.factory('UrlFactory', function() {
 		 * }
 		 */
 		sendAnswer: function(roomNumber) {
-			return baseUrl + "/api/problem/answer/" + roomNumber;	//send user answer
+			return baseUrl + "/api/problem/answer?room_id=" + roomNumber;	//send user answer
 		},
 
 		/**
@@ -64,7 +64,7 @@ gemastikApp.factory('UrlFactory', function() {
 		 * }
 		 */
 		getAnswer: function(roomNumber) {
-			return baseUrl + "/api/problem/getAnswer/" + roomNumber;	//get user answer
+			return baseUrl + "/api/problem/getAnswer?room_id=" + roomNumber;	//get user answer
 		},
 
 		/**

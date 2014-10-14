@@ -33,6 +33,7 @@ gemastikApp.factory('GameService', ['$http', '$q', 'UrlFactory', function($http,
 			return result.promise;
 		},
 		getAnswer: function(roomNumber) {
+			var result = $q.defer();
 			var answer = [];
 
 			$http.post(UrlFactory.getAnswer(roomNumber), {'lastId': lastId})
@@ -40,10 +41,10 @@ gemastikApp.factory('GameService', ['$http', '$q', 'UrlFactory', function($http,
 					if(data.lastAnswer != 0) {
 						lastId = data.lastAnswer;
 					}
-					answer = data.answer;
+					result.resolve(data.answer);
 				});
 
-			return data;
+			return result.promise;
 		},
 		sendAnswer: function(roomNumber, answer) {
 			$http.post(UrlFactory.sendAnswer(roomNumber), {'answer': answer});
