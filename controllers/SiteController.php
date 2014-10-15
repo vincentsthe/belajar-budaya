@@ -115,7 +115,7 @@ class SiteController extends Controller
 
     public function actionGame() {
         $this->layout = '@app/views/layouts/game';
-        $answer = new Answer; $answer->room_id = 1; $answer->user_id = Yii::$app->user->identity->id; $answer->result = 1;
+        $answer = new Answer; $answer->room_id = 1; $answer->user_id = 1; $answer->result = 1;
         //sementara 1 ruangan
         if ($answer->load(Yii::$app->request->post()) && $answer->validate()){
             $answer->save();
