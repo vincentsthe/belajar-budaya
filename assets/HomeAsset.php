@@ -13,6 +13,7 @@ class HomeAsset extends AssetBundle
     public $js = [
         'js/game/controller/HomeController.js',
         'js/game/service/FBService.js',
+        'js/game/service/UrlFactory.js',
         'js/game/service/ApiService.js'
     ];
     public $depends = [

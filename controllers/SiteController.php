@@ -14,6 +14,8 @@ use app\models\ContactForm;
 use app\models\form\ItemForm;
 use app\models\factory\ItemFactory;
 use app\models\db\User;
+use app\models\db\Answer;
+use yii\data\ActiveDataProvider;
 
 
 class SiteController extends Controller
@@ -112,8 +114,24 @@ class SiteController extends Controller
     }
 
     public function actionGame() {
-        $this->layout = 'plain';
-        return $this->render('game');
+        $this->layout = '@app/views/layouts/game';
+        $answer = new Answer; $answer->room_id = 1; $answer->user_id = Yii::$app->user->identity->id; $answer->result = 1;
+        //sementara 1 ruangan
+        if ($answer->load(Yii::$app->request->post()) && $answer->validate()){
+            $answer->save();
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Answer::find()->orderBy(['created_at'=>SORT_DESC]),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+        return $this->render('game',[
+            'dataProvider' => $dataProvider,
+            'answer' => $answer,
+            'score' => 0,
+        ]);
     }
 
     public function actionHome() {

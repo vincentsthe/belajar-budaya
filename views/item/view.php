@@ -12,8 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-md-3"><h1></h1><?=$this->render("_search",['searchModel'=>$searchModel]); ?></div>
 <div class="col-md-9">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p></p>
+    <h1><?= Html::encode($model->name) ?></h1>
+    <p><?=$model->description; ?></p>
+    <img src='<?=$model->image_url;?>' width='100px' height='100px'>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

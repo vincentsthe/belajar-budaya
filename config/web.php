@@ -55,6 +55,9 @@ $config = [
         'api' => [
             'class' => 'app\modules\api\ApiModule',
         ],
+        'gridview' => [
+            'class' => '\kartik\grid\Module'
+        ]
     ],
 ];
 

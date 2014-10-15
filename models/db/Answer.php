@@ -35,8 +35,8 @@ class Answer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['answer', 'user_id', 'question_id', 'room_id', 'result'], 'required'],
-            [['user_id', 'question_id', 'room_id', 'result'], 'integer'],
+            [['answer', 'user_id', 'room_id', 'result'], 'required'],
+            [['user_id', 'room_id', 'result'], 'integer'],
             [['created_at'], 'safe'],
             [['answer'], 'string', 'max' => 100]
         ];
@@ -51,7 +51,6 @@ class Answer extends \yii\db\ActiveRecord
             'id' => 'ID',
             'answer' => 'Answer',
             'user_id' => 'User ID',
-            'question_id' => 'Question ID',
             'room_id' => 'Room ID',
             'created_at' => 'Created At',
             'result' => 'Result',
@@ -74,11 +73,4 @@ class Answer extends \yii\db\ActiveRecord
         return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getQuestion()
-    {
-        return $this->hasOne(Question::className(), ['id' => 'question_id']);
-    }
 }
