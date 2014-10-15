@@ -19,6 +19,9 @@ use Yii;
  */
 class Room extends \yii\db\ActiveRecord
 {
+
+    const MAX_ANSWER_PER_ROOM = 30;
+    const QUESTION_PER_ROOM = 3;
     /**
      * @inheritdoc
      */
@@ -105,10 +108,16 @@ class Room extends \yii\db\ActiveRecord
 
     /**
      * create random 3 active questions
+     * @param int $item_id last item questioned
      */
-    public function createQuestions(){
-        $itemCount = Item::find()->count();
-        $item = Item::find()->offset(rand(0,$itemCount-1))->one();
+    public function createQuestions($item_id = null){
+
+        $itemQuery = Item::find();
+        if ($item_id !== null){
+            $itemQuery->andWhere(['not', ['id' => $item_id]]);
+        }
+        $itemCount = $itemQuery->count();
+        $item = $itemQuery->offset(rand(0,$itemCount-1))->one();
         $questions = $item->getQuestions()->select(['id'])->limit(3)->all();
         foreach($questions as $question){
             $roomQuestion = new RoomQuestion;
@@ -117,12 +126,16 @@ class Room extends \yii\db\ActiveRecord
         }
     }
 
+
     /**
-     * remove question metadata with status = 1 from database
+     * delete old questions and create new question if last timestamp > 10 minutes
      */
-    public function deleteIdleQuestions(){
-        $questions = $this->getRoomQuestions()->where(['room_question.status'=>0])->all();
-        foreach($questions as $question){
+    public function deleteOldQuestions(){
+        $roomQuestions = RoomQuestion::find()
+            ->andWhere(['room_id'=>$this->id])
+            ->andWhere("NOW() >  DATE_ADD(`created_at`,INTERVAL 10 SECOND)")
+            ->all();
+        foreach($roomQuestions as $question){
             $question->delete();
         }
     }
@@ -135,4 +148,19 @@ class Room extends \yii\db\ActiveRecord
         foreach($answers as $answer)
             $answer->delete();
     }
+
+    public function refreshQuestions(){
+        $question = $this->getQuestions()->one();
+        if ($question == null){
+            $this->createQuestions(null);
+        } else {
+            $this->deleteOldQuestions();
+            //if outdated
+            if ($this->getRoomQuestions()->one() == null){
+                $this->createQuestions($question->item_id);
+            }
+        }
+        
+    }
+
 }

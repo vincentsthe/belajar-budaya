@@ -8,6 +8,7 @@ use app\assets\GameAsset;
 GameAsset::register($this);
 /* @var $this \yii\web\View */
 /* @var $content string */
+date_default_timezone_set ("Asia/Jakarta");
 ?>
 <?php Pjax::begin(['timeout' => 10000]);?>
 <div>
@@ -19,7 +20,7 @@ GameAsset::register($this);
 								</h1>
 								<h2><p class="text-center" style="font-family: 'Kameron', serif;"><?=$item->name;?></p></h2>
 								<div class="count">
-									<?=0 ?>
+									<?= 10 - ($timeleft); ?>
 								</div>
 								<br>
 		</div>

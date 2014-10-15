@@ -16,6 +16,7 @@ use app\models\factory\ItemFactory;
 use app\models\db\User;
 use app\models\db\Room;
 use app\models\db\Answer;
+use app\models\db\RoomQuestion;
 use yii\data\ActiveDataProvider;
 
 
@@ -126,8 +127,9 @@ class SiteController extends Controller
 
         $room = Room::findOne($room_id);
         //clean-clean
+        $room->refreshQuestions();
         $room->deleteOldAnswers();
-        $room->deleteIdleQuestions();
+        $room->deleteOldQuestions();
         //get 10 last answer
         $dataProvider = new ActiveDataProvider([
             'query' => Answer::find()->orderBy(['id'=>SORT_DESC]),
@@ -140,20 +142,19 @@ class SiteController extends Controller
         $questions = $room->getActiveQuestions();
                 //fetch questions based on room
         if (count($questions) == 0){
-            $room->clearIdleQuestions();
             $room->createQuestions();
             $questions = $room->getActiveQuestions();
         }
         //var_dump($questions);
         $item = $questions[0]->item;
-        
-
+        $query = Yii::$app->db->createCommand('SELECT TIMESTAMPDIFF(second,`created_at`,CURRENT_TIMESTAMP) AS `timeleft` FROM `'.RoomQuestion::tableName().'` WHERE `room_id`='.$room_id.' LIMIT 1')->queryOne();
         return $this->render('game',[
             'dataProvider' => $dataProvider,
             'answer' => $answer,
             'score' => 0,
             'item' => $item,
             'questions' => $questions,
+            'timeleft' => $query['timeleft']
         ]);
     }
 
