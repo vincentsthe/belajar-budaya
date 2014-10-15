@@ -77,7 +77,7 @@ class Answer extends \yii\db\ActiveRecord
     }
 
     /**
-     * match the answer and the question answer
+     * match the answer and the question answer. update answered status in database
      * @param array $questions question object
      * @param int $room_id
      */
@@ -85,9 +85,11 @@ class Answer extends \yii\db\ActiveRecord
         $this->result = self::VALUE_IF_WRONG;
         foreach($questions as $question){
             if (strtolower($question->value) == strtolower($this->answer)){
-                $answered = $question->getRoomQuestions()->where(['room_id' => $room_id])->one()->answered;
+                $roomQuestion = $question->getRoomQuestions()->where(['room_id' => $room_id])->one();
+                $answered = $roomQuestion->answered;
                 if (!$answered){
                     $this->result = max($this->result,self::VALUE_IF_CORRECT);
+                    $roomQuestion->answered = 1; $roomQuestion->save();
                 } else {
                     $this->result = max($this->result,self::VALUE_IF_CORRECT_BUT_ANSWERED);
                 }

@@ -91,4 +91,16 @@ class Question extends \yii\db\ActiveRecord
     {
         return Question::find()->where(['item_id' => $itemId])->with('questionCategory')->all();
     }
+
+    /** 
+     * check if the question has answered correctly
+     * @param int $room_id
+     * @return boolean
+     */
+    public function hasAnswered($room_id)
+    {
+        $roomQuestion =  RoomQuestion::find()->where(['room_id'=>$room_id,'question_id'=>$this->id])->one();
+        if ($roomQuestion == null) return false;
+        return ($roomQuestion->answered != 0);
+    }
 }

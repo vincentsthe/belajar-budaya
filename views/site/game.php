@@ -11,7 +11,7 @@ GameAsset::register($this);
 date_default_timezone_set ("Asia/Jakarta");
 ?>
 <?php Pjax::begin(['timeout' => 10000]);?>
-<div>
+<div id="pjax-container">
 	<div class="container">
 		<div class="col-md-3 question" >
 								<h1 class="text-center guess">
@@ -21,8 +21,11 @@ date_default_timezone_set ("Asia/Jakarta");
 								<h2><p class="text-center" style="font-family: 'Kameron', serif;"><?=$item->name;?></p></h2>
 								<div class="count">
 									<?= 10 - ($timeleft); ?>
+
 								</div>
 								<br>
+								<h2 style="text-align:center"><?="total skor<br>".$score;?></h2>
+
 		</div>
 		<div class="col-md-4 info" id="question">
 			<?php foreach($questions as $question): ?>
@@ -30,12 +33,16 @@ date_default_timezone_set ("Asia/Jakarta");
 					<div class="col-md-4">
 						<img src="<?= Yii::$app->request->baseUrl."/".$question->questionCategory->image_url;?>" width="75px" />
 					</div>
-					<div class="col-md-8" style="padding:0px; margin:10px 0px 10px 0px;">
-						<p style="margin-bottom:0px;">
+					<div class="col-md-8" style="padding:0px; margin:10px 0px 10px 0px; ">
+						<p style="margin-bottom:0px; color:black;">
 							<?= $question->questionCategory->name; ?>
 						</p>
 						<p style="padding:0px; margin:0px;">
-							<b>TBD Jawaban</b>
+							<?php if ($question->hasAnswered($room_id)): ?>
+								<b style="color:green"><?=$question->value; ?></b>
+							<?php else: ?>
+								<b style="color:red">?</b>
+							<?php endif; ?>
 						</p>
 					</div>
 					</div>
@@ -61,32 +68,38 @@ date_default_timezone_set ("Asia/Jakarta");
 		<?php $this->registerJs('document.getElementById("chatDiv").scrollTop = 999999;'); ?>
 	</div>
 </div>
+<?= Html::a('woi','',['id' => 'refresh','style'=>'display:none']); ?>
+<?php 
+	$form = ActiveForm::begin([
+		'method' => 'post',
+		'options' =>[
+		'data-pjax' => '#pjax-container'],
+	]); 
+	?>
+	<?= Html::activeHiddenInput($answer,'room_id'); ?>
+	<?= Html::activeHiddenInput($answer,'user_id'); ?>
+	<?= Html::activeHiddenInput($answer,'answer',['id'=>'h-answer','class'=>"form-control", 'style'=>'min-height:50px; border-radius:5px; font-size:1.5em;','placeholder'=>". . . . ."]); ?>
+	<?php ActiveForm::end(); ?>
+
+	<script type="text/javascript">document.getElementById("answer").focus();</script>
+<?php Pjax::end(); ?>
 <div class="clearfix"></div>
 <div class="footer" id="footer" style="min-height:100px;">
 <div class="container">
 			<div class="col-md-4">
-				Skor anda<br>
-				<h1 style="margin:0px;"><?=$score;?></h1>
 			</div>
 
 			<div class="col-md-5 col-md-offset-3">
-			
-				<?php 
-					$form = ActiveForm::begin([
-						'method' => 'post',
-						'options' =>[
-						'data-pjax' => true],
-					]); 
-				?>
-				<?= Html::activeHiddenInput($answer,'room_id'); ?>
-				<?= Html::activeHiddenInput($answer,'user_id'); ?>
-				<?= Html::activeTextInput($answer,'answer',['class'=>"form-control", 'style'=>'min-height:50px; border-radius:5px; font-size:1.5em;','placeholder'=>". . . . ."]); ?>
-				<?php ActiveForm::end(); ?>
+				<input id="answer" type="text" class="form-control" style='cursor:default; min-height:50px; border-radius:5px; font-size:1.5em;' placeholder=". . . . ." onkeydown="if(event.keyCode == 13) {$('#h-answer').val(this.value); $('#h-answer').submit(); this.value=''; return false; }"/>
+				
 			</div>
-			<?php Pjax::end(); ?>
+			
+			
+			
+			<script type="text/javascript">setInterval(function(){document.getElementById("refresh").click()},1000);</script>
 
 </div>
 
 
 
-<?php //$this->registerJs('window.setTimeout(function(){$("#refresh").click();},1000);'); ?>
+<?php //$this->registerJs('setTimeout(function(){$("#refresh").dblclick();},300);'); ?>

@@ -160,7 +160,8 @@ class SiteController extends Controller
             'score' => 0,
             'item' => $item,
             'questions' => $questions,
-            'timeleft' => $query['timeleft']
+            'timeleft' => $query['timeleft'],
+            'room_id' => $room_id
         ]);
     }
 

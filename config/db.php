@@ -7,4 +7,6 @@ return [
     'password' => 'sebastian',
     'charset' => 'utf8',
     'enableSchemaCache' => true,
+    'schemaCacheDuration' => 30,
+    
 ];
