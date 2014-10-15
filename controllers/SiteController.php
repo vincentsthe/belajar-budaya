@@ -184,7 +184,7 @@ class SiteController extends Controller
 
                 if($item->save()) {
                     Yii::$app->session->setFlash('success', 'Data berhasil dikirimkan.');
-                    $model->gambar->saveAs('uploads/' . $model->gambar->baseName . '.' . $model->gambar->extension);
+                    $model->gambar->saveAs('img/items/' . $item->id . '.' . $model->gambar->extension);
                     $model = new ItemForm();
                 }
             }

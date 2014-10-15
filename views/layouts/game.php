@@ -24,36 +24,9 @@ AppAsset::register($this);
 <body>
 
 <?php $this->beginBody() ?>
-    <div class="wrap" ng-controller="SiteController" ng-init="init()">
-        <?php
-            NavBar::begin([
-                'brandLabel' => Html::img("@web/img/header.png"),
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-default navbar-static-top-header',
-                    'id' => 'header'
-                ],
-            ]);
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right','style' => 'padding: 5px 0px 5px 0px;'],
-                'items' => [
-                    ['label' => '<i class="fa fa-home"></i> Home', 'url' => ['/site/home']],
-                    ['label' => '<i class="fa fa-plus"></i> Add Item', 'url' => ['/site/additem']],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout ({{activeUser.name}})',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
-                ],
-                'encodeLabels' => false,
-            ]);
-            NavBar::end();
-        ?>
-
-        <div>
+    
             <?= $content ?>
-        </div>
-    </div>
+    
 
 <?php $this->endBody() ?>
 </body>

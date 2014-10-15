@@ -48,3 +48,7 @@ a:hover {
 .navbar-default .navbar-nav > .active, .navbar-default .navbar-nav > .active:hover{
 	border-bottom: 5px solid white;
 }
+
+html, body, .wrap, #w0 {
+	height: 100%;
+}

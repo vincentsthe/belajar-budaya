@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
@@ -11,6 +13,35 @@ GameAsset::register($this);
 date_default_timezone_set ("Asia/Jakarta");
 ?>
 <?php Pjax::begin(['timeout' => 10000]);?>
+
+<div class="wrap" ng-controller="SiteController" ng-init="init()">
+        <?php
+            NavBar::begin([
+                'brandLabel' => Html::img("@web/img/header.png"),
+                'brandUrl' => Yii::$app->homeUrl,
+                'options' => [
+                    'class' => 'navbar-default navbar-static-top-header',
+                    'id' => 'header'
+                ],
+            ]);
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right','style' => 'padding: 5px 0px 5px 0px;'],
+                'items' => [
+                    ['label' => '<i class="fa fa-home"></i> Home', 'url' => ['/site/home']],
+                    ['label' => '<i class="fa fa-plus"></i> Add Item', 'url' => ['/site/additem']],
+                    Yii::$app->user->isGuest ?
+                        ['label' => 'Login', 'url' => ['/site/login']] :
+                        ['label' => 'Logout ({{activeUser.name}})',
+                            'url' => ['/site/logout'],
+                            'linkOptions' => ['data-method' => 'post']],
+                ],
+                'encodeLabels' => false,
+            ]);
+            NavBar::end();
+        ?>
+
+        <div>
+
 <div>
 	<div class="container">
 		<div class="col-md-3 question" >
@@ -62,31 +93,37 @@ date_default_timezone_set ("Asia/Jakarta");
 	</div>
 </div>
 <div class="clearfix"></div>
-<div class="footer" id="footer" style="min-height:100px;">
-<div class="container">
-			<div class="col-md-4">
-				Skor anda<br>
-				<h1 style="margin:0px;"><?=$score;?></h1>
-			</div>
 
-			<div class="col-md-5 col-md-offset-3">
-			
-				<?php 
-					$form = ActiveForm::begin([
-						'method' => 'post',
-						'options' =>[
-						'data-pjax' => true],
-					]); 
-				?>
-				<?= Html::activeHiddenInput($answer,'room_id'); ?>
-				<?= Html::activeHiddenInput($answer,'user_id'); ?>
-				<?= Html::activeTextInput($answer,'answer',['class'=>"form-control", 'style'=>'min-height:50px; border-radius:5px; font-size:1.5em;','placeholder'=>". . . . ."]); ?>
-				<?php ActiveForm::end(); ?>
-			</div>
-			<?php Pjax::end(); ?>
 
+
+        </div>
+    </div>
+
+
+<div class="footer" id="footer" style="height:100px;margin-top:-100px">
+	<div class="container">
+				<div class="col-md-4">
+					Skor anda<br>
+					<h1 style="margin:0px;"><?=$score;?></h1>
+				</div>
+
+				<div class="col-md-5 col-md-offset-3">
+				
+					<?php 
+						$form = ActiveForm::begin([
+							'method' => 'post',
+							'options' =>[
+							'data-pjax' => true],
+						]); 
+					?>
+					<?= Html::activeHiddenInput($answer,'room_id'); ?>
+					<?= Html::activeHiddenInput($answer,'user_id'); ?>
+					<?= Html::activeTextInput($answer,'answer',['class'=>"form-control", 'style'=>'min-height:50px; border-radius:5px; font-size:1.5em;','placeholder'=>". . . . ."]); ?>
+					<?php ActiveForm::end(); ?>
+				</div>
+				<?php Pjax::end(); ?>
+
+	</div>
 </div>
-
-
 
 <?php //$this->registerJs('window.setTimeout(function(){$("#refresh").click();},1000);'); ?>
