@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-md-9">
     <h1><?= Html::encode($model->name) ?></h1>
     <p><?=$model->description; ?></p>
-    <img src='<?=$model->image_url;?>' width='100px' height='100px'>
+    <img src='<?=Yii::$app->request->baseUrl."/".$model->image_url;?>' width='100px' height='100px' style="margin: 10px;">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
