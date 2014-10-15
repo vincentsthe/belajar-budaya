@@ -81,7 +81,7 @@ date_default_timezone_set ("Asia/Jakarta");
 					       'dataProvider' => $dataProvider,
 					       'itemOptions' => ['class' => 'item'],
 					       'itemView' => function ($model, $key, $index, $widget) {
-					           return "<tr><td>".Html::encode($model->answer)."</td></tr>";
+					           return "<tr><td>".Yii::$app->user->identity->id."</td><td>".Html::encode($model->answer)."</td><td>".Html::encode($model->result)."</td></tr>";
 					       },
 					       'summary'=>'',
 					       'layout'=>'{items}',

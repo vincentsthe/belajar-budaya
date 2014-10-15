@@ -21,6 +21,9 @@ use Yii;
  */
 class Answer extends \yii\db\ActiveRecord
 {
+    const VALUE_IF_CORRECT = +5;
+    const VALUE_IF_CORRECT_BUT_ANSWERED = 0;
+    const VALUE_IF_WRONG = -2;
     /**
      * @inheritdoc
      */
@@ -71,6 +74,26 @@ class Answer extends \yii\db\ActiveRecord
     public function getRoom()
     {
         return $this->hasOne(Room::className(), ['id' => 'room_id']);
+    }
+
+    /**
+     * match the answer and the question answer
+     * @param array $questions question object
+     * @param int $room_id
+     */
+    public function match($questions,$room_id){
+        $this->result = self::VALUE_IF_WRONG;
+        foreach($questions as $question){
+            if (strtolower($question->value) == strtolower($this->answer)){
+                $answered = $question->getRoomQuestions()->where(['room_id' => $room_id])->one()->answered;
+                if (!$answered){
+                    $this->result = max($this->result,self::VALUE_IF_CORRECT);
+                } else {
+                    $this->result = max($this->result,self::VALUE_IF_CORRECT_BUT_ANSWERED);
+                }
+                
+            }
+        }
     }
 
 }

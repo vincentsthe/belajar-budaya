@@ -98,10 +98,14 @@ class Room extends \yii\db\ActiveRecord
      * get current active questions
      */
     public function getActiveQuestions(){
-        $roomQuestions = $this->getRoomQuestions()->where(['status' => '1'])->all();
+        $roomQuestions = $this->getRoomQuestions()->all();
         $questions = [];
         foreach($roomQuestions as $roomquestion){
-            array_push($questions,Question::findOne($roomquestion->question_id));
+            array_push($questions,Question::find()
+                ->with(['roomQuestions' => function($query){
+                    $query->andWhere(['room_id' => $this->id])->limit(1);
+                }])
+                ->where(['id' => $roomquestion->question_id])->one());
         }
         return $questions;
     }
@@ -121,7 +125,7 @@ class Room extends \yii\db\ActiveRecord
         $questions = $item->getQuestions()->select(['id'])->limit(3)->all();
         foreach($questions as $question){
             $roomQuestion = new RoomQuestion;
-            $roomQuestion->room_id = $this->id; $roomQuestion->question_id = $question->id; $roomQuestion->status = 1;
+            $roomQuestion->room_id = $this->id; $roomQuestion->question_id = $question->id; $roomQuestion->answered = 0;
             $roomQuestion->save();
         }
     }
