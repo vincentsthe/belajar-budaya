@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
@@ -98,8 +100,8 @@ date_default_timezone_set ("Asia/Jakarta");
 			
 			<script type="text/javascript">setInterval(function(){document.getElementById("refresh").click()},1000);</script>
 
-</div>
-
+        </div>
+    </div>
 
 
 <?php //$this->registerJs('setTimeout(function(){$("#refresh").dblclick();},300);'); ?>
