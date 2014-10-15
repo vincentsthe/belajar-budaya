@@ -120,10 +120,19 @@ class Room extends \yii\db\ActiveRecord
     /**
      * remove question metadata with status = 1 from database
      */
-    public function clearIdleQuestions(){
-        $questions = $this->getRoomQuestions()->all();
+    public function deleteIdleQuestions(){
+        $questions = $this->getRoomQuestions()->where(['room_question.status'=>0])->all();
         foreach($questions as $question){
             $question->delete();
         }
+    }
+
+    /**
+     * remove old answer
+     */
+    public function deleteOldAnswers(){
+        $answers = $this->getAnswers()->orderBy(['id'=>SORT_DESC])->offset(20)->all();
+        foreach($answers as $answer)
+            $answer->delete();
     }
 }

@@ -122,16 +122,21 @@ class SiteController extends Controller
         if ($answer->load(Yii::$app->request->post()) && $answer->validate()){
             $answer->save();
         }
+        $answer->answer = '';
 
+        $room = Room::findOne($room_id);
+        //clean-clean
+        $room->deleteOldAnswers();
+        $room->deleteIdleQuestions();
         //get 10 last answer
         $dataProvider = new ActiveDataProvider([
-            'query' => Answer::find()->orderBy(['created_at'=>SORT_DESC]),
+            'query' => Answer::find()->orderBy(['id'=>SORT_DESC]),
             'pagination' => [
                 'pageSize' => 10,
             ],
         ]);
 
-        $room = Room::findOne($room_id);
+        
         $questions = $room->getActiveQuestions();
                 //fetch questions based on room
         if (count($questions) == 0){

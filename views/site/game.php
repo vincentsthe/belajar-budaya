@@ -14,11 +14,12 @@ GameAsset::register($this);
 	<div class="container">
 		<div class="col-md-3 question" >
 								<h1 class="text-center guess">
-									<img width="150px" height="160px" src="<?= Yii::$app->request->baseUrl ?>/img/items/{{nama}}.jpg"/>
+									<img width="150px" height="160px" src="<?= Yii::$app->request->baseUrl."/".$item->image_url; ?>"/>
 									<!--i class="fa fa-building"></i-->
 								</h1>
-								<h2><p class="text-center" style="font-family: 'Kameron', serif;"></p></h2>
+								<h2><p class="text-center" style="font-family: 'Kameron', serif;"><?=$item->name;?></p></h2>
 								<div class="count">
+									<?=0 ?>
 								</div>
 								<br>
 		</div>
