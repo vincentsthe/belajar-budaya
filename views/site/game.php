@@ -22,7 +22,24 @@ GameAsset::register($this);
 								</div>
 								<br>
 		</div>
-
+		<div class="col-md-4 info" id="question">
+			<?php foreach($questions as $question): ?>
+					<div class="col-md-12" style="padding:20px 0px 20px 0px">
+					<div class="col-md-4">
+						<img src="<?= Yii::$app->request->baseUrl."/".$question->questionCategory->image_url;?>" width="75px" />
+					</div>
+					<div class="col-md-8" style="padding:0px; margin:10px 0px 10px 0px;">
+						<p style="margin-bottom:0px;">
+							<?= $question->questionCategory->name; ?>
+						</p>
+						<p style="padding:0px; margin:0px;">
+							<b>TBD Jawaban</b>
+						</p>
+					</div>
+					</div>
+			<?php endforeach; ?>
+			<div class="clearfix"></div>
+		</div>
 		<div class="col-md-5 text-table" id="chatDiv" style="max-height:500px;">
 		
 			<table class="table" id="table">

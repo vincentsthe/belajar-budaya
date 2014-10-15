@@ -12,8 +12,8 @@ use Yii;
  * @property string $value
  * @property integer $id
  *
- * @property Item $item
  * @property QuestionCategory $questionCategory
+ * @property Item $item
  * @property RoomQuestion[] $roomQuestions
  * @property Room[] $rooms
  */
@@ -55,14 +55,6 @@ class Question extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItem()
-    {
-        return $this->hasOne(Item::className(), ['id' => 'item_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getQuestionCategory()
     {
         return $this->hasOne(QuestionCategory::className(), ['id' => 'question_category_id']);
@@ -71,9 +63,17 @@ class Question extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getItem()
+    {
+        return $this->hasOne(Item::className(), ['id' => 'item_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getRoomQuestions()
     {
-        return $this->hasMany(RoomQuestion::className(), ['question_id' => 'item_id']);
+        return $this->hasMany(RoomQuestion::className(), ['question_id' => 'id']);
     }
 
     /**
@@ -81,6 +81,6 @@ class Question extends \yii\db\ActiveRecord
      */
     public function getRooms()
     {
-        return $this->hasMany(Room::className(), ['id' => 'room_id'])->viaTable('{room_question}', ['question_id' => 'item_id']);
+        return $this->hasMany(Room::className(), ['id' => 'room_id'])->viaTable('room_question', ['question_id' => 'id']);
     }
 }

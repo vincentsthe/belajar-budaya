@@ -12,8 +12,8 @@ use Yii;
  * @property string $created_at
  * @property integer $status
  *
- * @property Room $room
  * @property Question $question
+ * @property Room $room
  */
 class RoomQuestion extends \yii\db\ActiveRecord
 {
@@ -53,16 +53,16 @@ class RoomQuestion extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRoom()
+    public function getQuestion()
     {
-        return $this->hasOne(Room::className(), ['id' => 'room_id']);
+        return $this->hasOne(Question::className(), ['id' => 'question_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getQuestion()
+    public function getRoom()
     {
-        return $this->hasOne(Question::className(), ['item_id' => 'question_id']);
+        return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
 }

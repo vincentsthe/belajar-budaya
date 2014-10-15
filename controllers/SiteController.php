@@ -14,6 +14,7 @@ use app\models\ContactForm;
 use app\models\form\ItemForm;
 use app\models\factory\ItemFactory;
 use app\models\db\User;
+use app\models\db\Room;
 use app\models\db\Answer;
 use yii\data\ActiveDataProvider;
 
@@ -114,23 +115,40 @@ class SiteController extends Controller
     }
 
     public function actionGame() {
+        $room_id = 1;
         $this->layout = '@app/views/layouts/game';
-        $answer = new Answer; $answer->room_id = 1; $answer->user_id = 1; $answer->result = 1;
+        $answer = new Answer; $answer->room_id = $room_id; $answer->user_id = 1; $answer->result = 1;
         //sementara 1 ruangan
         if ($answer->load(Yii::$app->request->post()) && $answer->validate()){
             $answer->save();
         }
 
+        //get 10 last answer
         $dataProvider = new ActiveDataProvider([
             'query' => Answer::find()->orderBy(['created_at'=>SORT_DESC]),
             'pagination' => [
                 'pageSize' => 10,
             ],
         ]);
+
+        $room = Room::findOne($room_id);
+        $questions = $room->getActiveQuestions();
+                //fetch questions based on room
+        if (count($questions) == 0){
+            $room->clearIdleQuestions();
+            $room->createQuestions();
+            $questions = $room->getActiveQuestions();
+        }
+        //var_dump($questions);
+        $item = $questions[0]->item;
+        
+
         return $this->render('game',[
             'dataProvider' => $dataProvider,
             'answer' => $answer,
             'score' => 0,
+            'item' => $item,
+            'questions' => $questions,
         ]);
     }
 

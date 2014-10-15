@@ -10,14 +10,11 @@ use Yii;
  * @property integer $id
  * @property string $created_at
  * @property integer $active
- * @property integer $active_item_id
- * @property string $last_item_updated_at
  *
  * @property Answer[] $answers
- * @property Item $activeItem
- * @property RoomHasItem[] $roomHasItems
- * @property Item[] $items
- * @property RoomHasUser[] $roomHasUsers
+ * @property RoomQuestion[] $roomQuestions
+ * @property Question[] $questions
+ * @property RoomUser[] $roomUsers
  * @property User[] $users
  */
 class Room extends \yii\db\ActiveRecord
@@ -36,9 +33,9 @@ class Room extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'active', 'active_item_id'], 'required'],
-            [['id', 'active', 'active_item_id'], 'integer'],
-            [['created_at', 'last_item_updated_at'], 'safe']
+            [['id', 'active'], 'required'],
+            [['id', 'active'], 'integer'],
+            [['created_at'], 'safe']
         ];
     }
 
@@ -51,8 +48,6 @@ class Room extends \yii\db\ActiveRecord
             'id' => 'ID',
             'created_at' => 'Created At',
             'active' => 'Active',
-            'active_item_id' => 'Active Item ID',
-            'last_item_updated_at' => 'Last Item Updated At',
         ];
     }
 
@@ -67,33 +62,25 @@ class Room extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getActiveItem()
+    public function getRoomQuestions()
     {
-        return $this->hasOne(Item::className(), ['id' => 'active_item_id']);
+        return $this->hasMany(RoomQuestion::className(), ['room_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRoomHasItems()
+    public function getQuestions()
     {
-        return $this->hasMany(RoomHasItem::className(), ['room_id' => 'id']);
+        return $this->hasMany(Question::className(), ['id' => 'question_id'])->viaTable('room_question', ['room_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItems()
+    public function getRoomUsers()
     {
-        return $this->hasMany(Item::className(), ['id' => 'item_id'])->viaTable('{room_has_item}', ['room_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRoomHasUsers()
-    {
-        return $this->hasMany(RoomHasUser::className(), ['room_id' => 'id']);
+        return $this->hasMany(RoomUser::className(), ['room_id' => 'id']);
     }
 
     /**
@@ -101,6 +88,42 @@ class Room extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{room_has_user}', ['room_id' => 'id']);
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('room_user', ['room_id' => 'id']);
+    }
+
+    /**
+     * get current active questions
+     */
+    public function getActiveQuestions(){
+        $roomQuestions = $this->getRoomQuestions()->where(['status' => '1'])->all();
+        $questions = [];
+        foreach($roomQuestions as $roomquestion){
+            array_push($questions,Question::findOne($roomquestion->question_id));
+        }
+        return $questions;
+    }
+
+    /**
+     * create random 3 active questions
+     */
+    public function createQuestions(){
+        $itemCount = Item::find()->count();
+        $item = Item::find()->offset(rand(0,$itemCount-1))->one();
+        $questions = $item->getQuestions()->select(['id'])->limit(3)->all();
+        foreach($questions as $question){
+            $roomQuestion = new RoomQuestion;
+            $roomQuestion->room_id = $this->id; $roomQuestion->question_id = $question->id; $roomQuestion->status = 1;
+            $roomQuestion->save();
+        }
+    }
+
+    /**
+     * remove question metadata with status = 1 from database
+     */
+    public function clearIdleQuestions(){
+        $questions = $this->getRoomQuestions()->all();
+        foreach($questions as $question){
+            $question->delete();
+        }
     }
 }
