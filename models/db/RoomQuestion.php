@@ -32,7 +32,7 @@ class RoomQuestion extends \yii\db\ActiveRecord
     {
         return [
             [['room_id', 'question_id'], 'required'],
-            [['room_id', 'question_id', 'status'], 'integer'],
+            [['room_id', 'question_id', 'answered'], 'integer'],
             [['created_at'], 'safe']
         ];
     }
@@ -46,7 +46,7 @@ class RoomQuestion extends \yii\db\ActiveRecord
             'room_id' => 'Room ID',
             'question_id' => 'Question ID',
             'created_at' => 'Created At',
-            'status' => 'Status',
+            'answered' => 'Answered',
         ];
     }
 

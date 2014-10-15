@@ -119,10 +119,7 @@ class SiteController extends Controller
         $room_id = 1;
         $this->layout = '@app/views/layouts/game';
         $answer = new Answer; $answer->room_id = $room_id; $answer->user_id = 1; $answer->result = 1;
-        //sementara 1 ruangan
-        if ($answer->load(Yii::$app->request->post()) && $answer->validate()){
-            $answer->save();
-        }
+
         $answer->answer = '';
 
         $room = Room::findOne($room_id);
@@ -145,6 +142,15 @@ class SiteController extends Controller
             $room->createQuestions();
             $questions = $room->getActiveQuestions();
         }
+
+        //sementara 1 ruangan
+        if ($answer->load(Yii::$app->request->post()) && $answer->validate()){
+            $answer->match($questions,$room_id);
+            if ($answer->save()){
+                $user = User::findOne(Yii::$app->user->identity->id); $user->score += $answer->result; $user->save();
+            };
+        }
+
         //var_dump($questions);
         $item = $questions[0]->item;
         $query = Yii::$app->db->createCommand('SELECT TIMESTAMPDIFF(second,`created_at`,CURRENT_TIMESTAMP) AS `timeleft` FROM `'.RoomQuestion::tableName().'` WHERE `room_id`='.$room_id.' LIMIT 1')->queryOne();
