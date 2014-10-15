@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\db\Item;
+use app\models\db\Question;
+use app\models\db\QuestionCategory;
 use app\models\search\ItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,6 +54,33 @@ class ItemController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => new ItemSearch(),
+        ]);
+    }
+
+    /**
+     * Add question for the item
+     */
+    public function actionAddquestion($itemId) {
+        $newQuestion = new Question;
+        $questionCategory = QuestionCategory::find()->all();
+        $questions = Question::getItemQuestion($itemId);
+
+        if((Yii::$app->request->isPost) && ($newQuestion->load(Yii::$app->request->post()))) {
+            $newQuestion->item_id = $itemId;
+            if($newQuestion->validate()) {
+                $newQuestion->save(false);
+                Yii::$app->session->setFlash('success', 'Pertanyaan berhasil disimpan.');
+                $newQuestion = new Question;
+            } else {
+                Yii::$app->session->setFlash('error', 'Pertanyaan tidak berhasil disimpan.');
+            }
+        }
+
+        return $this->render('addQuestion', [
+            'model' => $this->findModel($itemId),
+            'questions' => $questions,
+            'newQuestion' => $newQuestion,
+            'questionCategory' => $questionCategory,
         ]);
     }
 

@@ -46,8 +46,8 @@ class Question extends \yii\db\ActiveRecord
     {
         return [
             'item_id' => 'Item ID',
-            'question_category_id' => 'Question Category ID',
-            'value' => 'Value',
+            'question_category_id' => 'Kategori Pertanyaan',
+            'value' => 'Jawaban',
             'id' => 'ID',
         ];
     }
@@ -82,5 +82,13 @@ class Question extends \yii\db\ActiveRecord
     public function getRooms()
     {
         return $this->hasMany(Room::className(), ['id' => 'room_id'])->viaTable('room_question', ['question_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemQuestion($itemId)
+    {
+        return Question::find()->where(['item_id' => $itemId])->with('questionCategory')->all();
     }
 }
