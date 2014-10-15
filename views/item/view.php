@@ -26,4 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'is_valid',
         ],
     ]) ?>
+
+    <center><a href="<?= \Yii::$app->urlManager->createUrl(['wiki/addquestion', 'itemId' => $model->id]); ?>" class="btn btn-warning">Buat Pertanyaan</a></center>
+    <br><br>
 </div>
