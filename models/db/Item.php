@@ -36,7 +36,7 @@ class Item extends \yii\db\ActiveRecord
         return [
             [['name', 'description', 'image_url', 'item_category_id'], 'required'],
             [['description'], 'string'],
-            [['item_category_id'], 'integer'],
+            [['item_category_id', 'is_valid'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['image_url'], 'string', 'max' => 200]
         ];
@@ -53,6 +53,7 @@ class Item extends \yii\db\ActiveRecord
             'description' => 'Deskripsi',
             'image_url' => 'Gambar',
             'item_category_id' => 'Category',
+            'is_valid' => 'Data Valid',
         ];
     }
 

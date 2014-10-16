@@ -12,10 +12,18 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="item-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= $model->name ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="col-md-3">
+    	<div class="row">
+    		<img src="<?= \Yii::$app->request->baseUrl . '/' . $model->image_url ?>" width="200" height="200">
+    	</div>
+    </div>
+    <div class="col-md-9">
+	    <?= $this->render('_form', [
+	        'model' => $model,
+	        'category' =>$category,
+	    ]) ?>
+	</div>
 
 </div>

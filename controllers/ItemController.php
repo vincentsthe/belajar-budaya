@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\db\Item;
+use app\models\db\ItemCategory;
 use app\models\db\Question;
 use app\models\db\QuestionCategory;
 use app\models\search\ItemSearch;
@@ -111,12 +112,15 @@ class ItemController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $category = ItemCategory::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Data berhasil diperbarui.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'category' => $category,
             ]);
         }
     }
