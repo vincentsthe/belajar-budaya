@@ -8,7 +8,6 @@ use yii\widgets\ActiveForm;
 use app\assets\GameAsset;
 use app\models\db\Answer;
 
-GameAsset::register($this);
 /* @var $this \yii\web\View */
 /* @var $content string */
 date_default_timezone_set ("Asia/Jakarta");
@@ -53,7 +52,24 @@ date_default_timezone_set ("Asia/Jakarta");
 		<div class="col-md-5 text-table" id="chatDiv" style="max-height:500px;">
 		
 			<table class="table" id="table">
-				<?= 
+				<?php $chat = array_reverse($chat); ?>
+				<?php foreach ($chat as $model):
+						$style = '';
+			       		switch ($model->result) {
+			       			case Answer::VALUE_IF_CORRECT:
+			       				$style = 'font-weight:bold; color:green';
+			       				break;
+			       			case Answer::VALUE_IF_WRONG:
+			       				$style = 'color:red';
+			       				break;
+			       			default:
+			       				$style = 'color:black';
+			       				break;
+			       		}
+			           	echo "<tr style='$style'><td>".$model->user->nick_name." : ".Html::encode($model->answer)."</td><td>".Html::encode($model->result)."</td></tr>";
+						endforeach; 
+				?>
+				<?php /*
 					ListView::widget([
 					       'dataProvider' => $dataProvider,
 					       'itemOptions' => ['class' => 'item'],
@@ -74,7 +90,7 @@ date_default_timezone_set ("Asia/Jakarta");
 					       },
 					       'summary'=>'',
 					       'layout'=>'{items}',
-					]);
+					]);*/
 				?>
 			</table>
 		</div>
@@ -99,8 +115,10 @@ date_default_timezone_set ("Asia/Jakarta");
 <div class="clearfix"></div>
 <div class="footer" id="footer" style="min-height:100px;bottom:10px;position:absolute;">
 <div class="container">
+
 			<div class="col-md-4" style="margin-top:0;">
-				<h2 style="text-align:center;margin-top:0;"><?="total skor<br>".$score;?></h2>
+			<p style="">Total skor</p>
+				<h2 style="margin-top:0;"><?="".$score;?></h2>
 			</div>
 
 			<div class="col-md-5 col-md-offset-3">

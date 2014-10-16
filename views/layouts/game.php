@@ -40,7 +40,7 @@ AppAsset::register($this);
                     ['label' => '<i class="fa fa-plus"></i> Add Item', 'url' => ['/site/additem']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => "Logout (".Yii::$app->user->identity->full_name.")",
+                        ['label' => "<i class='fa fa-sign-out'></i> Logout (".Yii::$app->user->identity->full_name.")",
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
                 ],
