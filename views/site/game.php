@@ -23,8 +23,9 @@ date_default_timezone_set ("Asia/Jakarta");
 								<h2><p class="text-center" style="font-family: 'Kameron', serif;"><?=$item->name;?></p></h2>
 								<div class="count">
 									<?= 10 - ($timeleft); ?>
-
 								</div>
+								<h4>Skor anda</h4>
+								<h3><?=$score;?></h3>
 
 		</div>
 		<div class="col-md-4 info" id="question">
@@ -117,8 +118,8 @@ date_default_timezone_set ("Asia/Jakarta");
 <div class="container">
 
 			<div class="col-md-4" style="margin-top:0;">
-			<p style="">Total skor</p>
-				<h2 style="margin-top:0;"><?="".$score;?></h2>
+			<p style=""></p>
+				<h2 style="margin-top:0;"></h2>
 			</div>
 
 			<div class="col-md-5 col-md-offset-3">

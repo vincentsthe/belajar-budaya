@@ -116,7 +116,7 @@ class Room extends \yii\db\ActiveRecord
      */
     public function createQuestions($item_id = null){
         //select item with questions > 3
-        $itemQuery = Item::find();
+        $itemQuery = Item::find()->where(['is_valid' => 1]);
         if ($item_id !== null){
             $itemQuery->andWhere(['not', ['id' => $item_id]]);
         }

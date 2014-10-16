@@ -17,10 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-md-12">
 <div class="col-md-3"><h1></h1><?= $this->render("_search",['searchModel' => $searchModel]); ?></div>
 <div class="col-md-9">
-<h1><?= Html::encode($this->title) ?></h1>
+<h1>Daftar Budaya</h1>
 
     <p>
-        <?= Html::a('Create Item', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah budaya baru', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= 
         ListView::widget([
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <img src=\"" . \Yii::$app->request->baseUrl . "/" . $model->image_url . "\" width=\"150\">
                         </div>
                         <div class=\"col-md-9\">
-                            <div>$model->description</div>
+                            <div>".substr($model->description,0,250)."</div>
                         </div>
                     </div>
                 </a>

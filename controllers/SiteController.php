@@ -185,7 +185,7 @@ class SiteController extends Controller
         //clean-clean
         $room->refreshQuestions();
         $room->deleteOldAnswers();
-        $room->deleteOldQuestions();
+        //$room->deleteOldQuestions();
         //get 10 last answer
         /*
         $dataProvider = new ActiveDataProvider([
