@@ -22,6 +22,7 @@
 					foreach($items as $item): ?>
 						<div class="menu-box" style="background-color: #A8FFA4">
 						<?= Html::img(Yii::$app->request->baseUrl."/$item->image_url",['style' => 'height:70px;float:left;border-radius:10px;']); ?>
+						<?= Html::img(Yii::$app->request->baseUrl."/".$item->image_url,['style' => 'height:70px;float:left;border-radius:10px;']); ?>
 							<?= Html::a("<h3 style='float:left' style='font-family: 'Kameron', serif;'>&nbsp; $item->name </h3>",['wiki/view','id' => $item->id]); ?>
 						</div>
 					<?php endforeach;

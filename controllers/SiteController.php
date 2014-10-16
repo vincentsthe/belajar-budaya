@@ -22,6 +22,7 @@ use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
+    public $defaultAction = 'home';
 
     public function behaviors()
     {
@@ -59,10 +60,6 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
 
     public function actionLogin()
     {
@@ -169,6 +166,7 @@ class SiteController extends Controller
         $items = Item::find()->limit(3)->all();
         $ranks = User::find()->orderBy(['score' => SORT_DESC])->limit(5)->all();
 
+
         return $this->render('home',[
             'items' => $items,
             'ranks' => $ranks,
@@ -190,6 +188,9 @@ class SiteController extends Controller
                 $item = ItemFactory::createItemFromItemForm($model);
 
                 if($item->save()) {
+                    //update image url
+                    $item->image_url = 'img/items/' . $item->id . '.' . $model->gambar->extension; $item->save();
+
                     Yii::$app->session->setFlash('success', 'Data berhasil dikirimkan.');
                     $model->gambar->saveAs('img/items/' . $item->id . '.' . $model->gambar->extension);
                     $model = new ItemForm();
