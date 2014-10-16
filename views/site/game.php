@@ -26,8 +26,6 @@ date_default_timezone_set ("Asia/Jakarta");
 									<?= 10 - ($timeleft); ?>
 
 								</div>
-								<br>
-								<h2 style="text-align:center"><?="total skor<br>".$score;?></h2>
 
 		</div>
 		<div class="col-md-4 info" id="question">
@@ -99,9 +97,10 @@ date_default_timezone_set ("Asia/Jakarta");
 	<script type="text/javascript">document.getElementById("answer").focus();</script>
 <?php Pjax::end(); ?>
 <div class="clearfix"></div>
-<div class="footer" id="footer" style="min-height:100px;">
+<div class="footer" id="footer" style="min-height:100px;bottom:10px;position:absolute;">
 <div class="container">
-			<div class="col-md-4">
+			<div class="col-md-4" style="margin-top:0;">
+				<h2 style="text-align:center;margin-top:0;"><?="total skor<br>".$score;?></h2>
 			</div>
 
 			<div class="col-md-5 col-md-offset-3">

@@ -23,13 +23,9 @@ body {
 }
 
 .footer {
-	clear: both;
-	position: relative;
-	z-index: 10;
 	left:0;
 	height: 3.5em;
 	margin-top: -3.5em;
-	bottom:0;
 	background-color: #f0ad4e;
 	width: 100%;
 	padding: 10px 20px;

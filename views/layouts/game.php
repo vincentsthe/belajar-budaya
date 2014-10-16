@@ -23,7 +23,7 @@ AppAsset::register($this);
     <link rel="icon" type="image/x-icon" href="<?=Yii::$app->request->baseUrl?>/img/favicon.ico" />
 </head>
 <?php $this->beginBody(); ?>
-<div class="wrap" ng-controller="SiteController" ng-init="init()">
+<div class="wrap" ng-controller="SiteController" ng-init="init()" class="padding-bottom:0">
         <?php
             NavBar::begin([
                 'brandLabel' => Html::img("@web/img/header.png"),
