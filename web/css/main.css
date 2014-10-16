@@ -173,3 +173,11 @@ div.top-scorer div {
 .doggie > a:hover{
 	border-left: 5px solid green;
 }
+
+#fblogin {
+	opacity: 0.8;
+}
+
+#fblogin:hover {
+	opacity: 1;
+}

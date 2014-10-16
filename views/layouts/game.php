@@ -20,6 +20,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href="<?=Yii::$app->request->baseUrl?>/img/favicon.ico" />
 </head>
 <?php $this->beginBody(); ?>
 <div class="wrap" ng-controller="SiteController" ng-init="init()">
@@ -39,7 +40,7 @@ AppAsset::register($this);
                     ['label' => '<i class="fa fa-plus"></i> Add Item', 'url' => ['/site/additem']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout ({{activeUser.name}})',
+                        ['label' => "Logout (".Yii::$app->user->identity->full_name.")",
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
                 ],

@@ -38,11 +38,13 @@
 			</div>
 			<div class="col-md-4" style="background-color: #f0ad4e; border-radius:10px;">
 				<h3 class="title">Top Skor</h3>
-				<div class="col-md-12 top-scorer" ng-repeat="user in topUsers">
-					<div class="top-scorer-p"><img src="{{user.picture_url}}" class="player-img" width="40px"/></div>
-					<b><div class="top-scorer-n">{{user.name}}</div>
-					<div class="top-scorer-s">{{user.score}}</div></b>
+				<?php foreach($ranks as $rank): ?>
+				<div class="col-md-12 top-scorer">
+					<div class="top-scorer-p"><img src='<?=$rank->image_url;?>' class="player-img" width="40px"/></div>
+					<b><div class="top-scorer-n"><?=$rank->nick_name;?></div>
+					<div class="top-scorer-s"><?=$rank->score;?></div></b>
 				</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>

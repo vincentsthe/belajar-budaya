@@ -16,12 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <center><?= Html::img("@web/img/logo_web.png"); ?><br><br><br>
 <div id="fb-root"></div>
-<fb:login-button scope="public_profile,email" size="large" onlogin="checkLoginState();">
-<?=Yii::t('app','Login with Facebook'); ?></fb:login-button>
+<?=Html::a("<img src='".Yii::$app->request->baseUrl."/img/login_facebook.png'/>",['site/fblogin'],['id'=>'fblogin']); ?>
 </center>
 
   <script type="text/javascript">
-
+/*
   window.fbAsyncInit = function() {
       FB.init({
         appId      : '701116673300033',
@@ -56,5 +55,5 @@ $this->params['breadcrumbs'][] = $this->title;
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-
+*/
 </script>

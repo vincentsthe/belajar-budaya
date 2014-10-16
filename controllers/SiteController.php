@@ -18,7 +18,11 @@ use app\models\db\Room;
 use app\models\db\Answer;
 use app\models\db\RoomQuestion;
 use yii\data\ActiveDataProvider;
-
+use yii\web\Session;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookSession;
+use Facebook\FacebookRequest;
+use Facebook\GraphUser;
 
 class SiteController extends Controller
 {
@@ -29,14 +33,22 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','game','home'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        //allow authenticated request
+                        'actions' => ['logout','game','home'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+
+                        'actions' => ['game','home'],
+                        'allow' => false,
+                        'roles' => ['?']
+                    ],
                 ],
+
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -60,6 +72,54 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionFblogin(){
+        $helper = new FacebookRedirectLoginHelper(Yii::$app->urlManager->createAbsoluteUrl(['site/checkfblogin']));
+        return $this->redirect($helper->getLoginUrl());
+    }
+
+    public function actionCheckfblogin(){
+        
+        $helper = new FacebookRedirectLoginHelper(Yii::$app->urlManager->createAbsoluteUrl(['site/checkfblogin']));
+        try {
+            $fbSession = $helper->getSessionFromRedirect();
+            if ($fbSession) {
+            //saving 
+
+                $fb_user = (new FacebookRequest(
+                  $fbSession, 'GET', '/me'
+                ))->execute()->getGraphObject(GraphUser::className());
+
+                $fb_picture = (new FacebookRequest(
+                  $fbSession,
+                  'GET',
+                  '/me/picture?redirect=false'
+                ))->execute()->getGraphObject();
+
+                if (($model = User::find()->where(['email' => $fb_user->getProperty('email')])->one()) == null){
+                    $model = new User;
+                }
+                //var_dump(expression)
+                $model->setFacebookUser($fb_user,$fbSession,$fb_picture->getProperty('url'));
+                if ($model->save()){
+                    Yii::$app->user->login($model);
+                    return $this->redirect(['site/home']);
+                } else {
+                    var_dump($model->getErrors());
+                }               
+            } else {
+                echo "not logged in";
+            }
+
+        } catch(FacebookRequestException $ex) {
+            echo $ex->getMessage();
+          // When Facebook returns an error
+        } catch(\Exception $ex) {
+            echo $ex->getMessage();
+          // When validation fails or other local issues
+        }
+
+        
+    }
 
     public function actionLogin()
     {
@@ -115,7 +175,7 @@ class SiteController extends Controller
     public function actionGame() {
         $room_id = 1;
         $this->layout = '@app/views/layouts/game';
-        $answer = new Answer; $answer->room_id = $room_id; $answer->user_id = 1; $answer->result = 1;
+        $answer = new Answer; $answer->room_id = $room_id; $answer->user_id = Yii::$app->user->identity->id; $answer->result = 0;
 
         $answer->answer = '';
 
@@ -126,7 +186,7 @@ class SiteController extends Controller
         $room->deleteOldQuestions();
         //get 10 last answer
         $dataProvider = new ActiveDataProvider([
-            'query' => Answer::find()->orderBy(['id'=>SORT_DESC]),
+            'query' => Answer::find()->with('user')->orderBy(['id'=>SORT_DESC]),
             'pagination' => [
                 'pageSize' => 10,
             ],
@@ -202,5 +262,15 @@ class SiteController extends Controller
             'model' => $model,
             'categories' => $categories,
         ]);
+    }
+
+    public function beforeAction($action){
+        if (parent::beforeAction($action)){
+            FacebookSession::setDefaultApplication(Yii::$app->params['fb_app_id'],Yii::$app->params['fb_app_secret']);
+            $session = new Session(); $session->open();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

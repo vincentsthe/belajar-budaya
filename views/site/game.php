@@ -6,6 +6,7 @@ use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
 use app\assets\GameAsset;
+use app\models\db\Answer;
 
 GameAsset::register($this);
 /* @var $this \yii\web\View */
@@ -59,7 +60,19 @@ date_default_timezone_set ("Asia/Jakarta");
 					       'dataProvider' => $dataProvider,
 					       'itemOptions' => ['class' => 'item'],
 					       'itemView' => function ($model, $key, $index, $widget) {
-					           return "<tr><td>".Yii::$app->user->identity->id."</td><td>".Html::encode($model->answer)."</td><td>".Html::encode($model->result)."</td></tr>";
+					       		$style = '';
+					       		switch ($model->result) {
+					       			case Answer::VALUE_IF_CORRECT:
+					       				$style = 'font-weight:bold; color:green';
+					       				break;
+					       			case Answer::VALUE_IF_WRONG:
+					       				$style = 'color:red';
+					       				break;
+					       			default:
+					       				$style = 'color:black';
+					       				break;
+					       		}
+					           	return "<tr style='$style'><td>".$model->user->nick_name." : ".Html::encode($model->answer)."</td><td>".Html::encode($model->result)."</td></tr>";
 					       },
 					       'summary'=>'',
 					       'layout'=>'{items}',
