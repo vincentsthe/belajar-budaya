@@ -63,8 +63,6 @@ class ItemController extends Controller
      */
     public function actionAddquestion($itemId) {
         $newQuestion = new Question;
-        $questionCategory = QuestionCategory::find()->all();
-        $questions = Question::getItemQuestion($itemId);
 
         if((Yii::$app->request->isPost) && ($newQuestion->load(Yii::$app->request->post()))) {
             $newQuestion->item_id = $itemId;
@@ -76,6 +74,9 @@ class ItemController extends Controller
                 Yii::$app->session->setFlash('error', 'Pertanyaan tidak berhasil disimpan.');
             }
         }
+        
+        $questionCategory = QuestionCategory::find()->all();
+        $questions = Question::getItemQuestion($itemId);
 
         return $this->render('addQuestion', [
             'model' => $this->findModel($itemId),
