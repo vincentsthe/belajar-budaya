@@ -14,9 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= Html::activeHiddenInput($model,'fb_access_token',['id'=>'fb-access-token']); ?>
 <?php ActiveForm::end(); ?>
 
-<center><?= Html::img("@web/img/logo_web.png"); ?><br><br><br>
+<center><?= Html::img("@web/img/logo_web.png",[]); ?><br><br><br>
 <div id="fb-root"></div>
-<?=Html::a("<img src='".Yii::$app->request->baseUrl."/img/login_facebook.png'/>",['site/fblogin'],['id'=>'fblogin']); ?>
+<?=Html::a(Html::img("@web/img/login_facebook.png"),['site/fblogin'],['id'=>'fblogin']); ?>
 </center>
 
   <script type="text/javascript">
