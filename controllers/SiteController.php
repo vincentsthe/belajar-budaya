@@ -187,12 +187,13 @@ class SiteController extends Controller
         $room->deleteOldAnswers();
         $room->deleteOldQuestions();
         //get 10 last answer
+        /*
         $dataProvider = new ActiveDataProvider([
             'query' => Answer::find()->with('user')->orderBy(['id'=>SORT_DESC]),
             'pagination' => [
                 'pageSize' => 10,
             ],
-        ]);
+        ]);*/
 
         
         $questions = $room->getActiveQuestions();
@@ -214,9 +215,10 @@ class SiteController extends Controller
         $item = $questions[0]->item;
         $query = Yii::$app->db->createCommand('SELECT TIMESTAMPDIFF(second,`created_at`,CURRENT_TIMESTAMP) AS `timeleft` FROM `'.RoomQuestion::tableName().'` WHERE `room_id`='.$room_id.' LIMIT 1')->queryOne();
         return $this->render('game',[
-            'dataProvider' => $dataProvider,
+            //'dataProvider' => $dataProvider,
+            'chat' => Answer::find()->with('user')->orderBy(['id'=>SORT_DESC])->limit(11)->all(),
             'answer' => $answer,
-            'score' => 0,
+            'score' => User::find()->where(['id'=>Yii::$app->user->identity->id])->one()->score,
             'item' => $item,
             'questions' => $questions,
             'timeleft' => $query['timeleft'],
