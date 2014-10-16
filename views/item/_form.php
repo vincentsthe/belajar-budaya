@@ -19,7 +19,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'item_category_id')->dropDownList(ArrayHelper::map($category, 'id', 'name')); ?>
 
-    <?php if((isset(\Yii::$app->user->identity)) && (\Yii::$app->user->identity->fb_id==10202557911809734) && (\Yii::$app->user->identity->fb_id==10204215772092730)): ?>
+    <?php if(($isValidOption) && (isset(\Yii::$app->user->identity)) && (\Yii::$app->user->identity->fb_id==10202557911809734) && (\Yii::$app->user->identity->fb_id==10204215772092730)): ?>
     	<?= $form->field($model, 'is_valid')->checkbox(); ?>
 	<?php endif; ?>
 

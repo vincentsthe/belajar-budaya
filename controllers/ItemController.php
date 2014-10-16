@@ -113,6 +113,13 @@ class ItemController extends Controller
     {
         $model = $this->findModel($id);
         $category = ItemCategory::find()->all();
+        $isValidOption = false;
+
+        if(count(Question::getItemQuestion($id)) >= 3) {
+            $isValidOption = true;
+        } else {
+            $isValidOption = false;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Data berhasil diperbarui.');
@@ -121,6 +128,7 @@ class ItemController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'category' => $category,
+                'isValidOption' => $isValidOption,
             ]);
         }
     }
