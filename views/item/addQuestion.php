@@ -33,20 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php endif; ?>
 
-    <h1><?= Html::encode($model->name) ?></h1>
-    <p><?=$model->description; ?></p>
-    <img src='<?=Yii::$app->request->baseUrl."/".$model->image_url;?>' width='100px' height='100px' style="margin: 10px;">
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'description:ntext',
-            'image_url:url',
-            'item_category_id',
-            'is_valid',
-        ],
-    ]) ?>
+    <div class="row">
+        <h1><?= Html::encode($model->name) ?></h1>
+        <div class="col-md-3">
+            <img src='<?=Yii::$app->request->baseUrl."/".$model->image_url;?>' width='150px' height='150px' style="margin: 10px;">
+        </div>
+        <div class="col-md-9">
+            <?= $model->description; ?>
+        </div>
+    </div>
 
     <hr>
     <h2>Pertanyaan</h2>

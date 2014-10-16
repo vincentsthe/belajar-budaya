@@ -12,21 +12,17 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-md-3"><h1></h1><?=$this->render("_search",['searchModel'=>$searchModel]); ?></div>
 <div class="col-md-9">
-    <h1><?= Html::encode($model->name) ?></h1>
-    <p><?=$model->description; ?></p>
-    <img src='<?=Yii::$app->request->baseUrl."/".$model->image_url;?>' width='100px' height='100px' style="margin: 10px;">
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'description:ntext',
-            'image_url:url',
-            'item_category_id',
-            'is_valid',
-        ],
-    ]) ?>
-
+    <div class="row">
+        <h1><?= Html::encode($model->name) ?></h1>
+        <div class="col-md-3">
+            <img src='<?=Yii::$app->request->baseUrl."/".$model->image_url;?>' width='150px' height='150px' style="margin: 10px;">
+        </div>
+        <div class="col-md-9">
+            <?= $model->description; ?>
+        </div>
+    </div>
+    
+    <br><br>
     <center><a href="<?= \Yii::$app->urlManager->createUrl(['wiki/addquestion', 'itemId' => $model->id]); ?>" class="btn btn-warning">Buat Pertanyaan</a></center>
     <br><br>
 </div>
