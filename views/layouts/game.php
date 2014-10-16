@@ -22,7 +22,7 @@ AppAsset::register($this);
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 </head>
 <?php $this->beginBody(); ?>
-<div class="wrap" ng-controller="SiteController" ng-init="init()">
+<div class="wrap" ng-controller="SiteController" ng-init="init()" class="padding-bottom:0">
         <?php
             NavBar::begin([
                 'brandLabel' => Html::img("@web/img/header.png"),
