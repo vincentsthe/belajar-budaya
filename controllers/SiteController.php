@@ -89,6 +89,8 @@ class SiteController extends Controller
                   $fbSession, 'GET', '/me'
                 ))->execute()->getGraphObject(GraphUser::className());
 
+                //var_dump($fb_user);
+                //die("here");
                 $fb_picture = (new FacebookRequest(
                   $fbSession,
                   'GET',

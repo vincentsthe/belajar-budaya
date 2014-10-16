@@ -36,7 +36,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['nick_name', 'full_name', 'email', 'fb_access_token', 'fb_id'], 'required'],
+            [['nick_name', 'full_name', 'fb_access_token', 'fb_id'], 'required'],
             [['score'], 'integer'],
             [['nick_name', 'full_name', 'email', 'fb_id'], 'string', 'max' => 100],
             [['fb_access_token'], 'string', 'max' => 500],
@@ -88,10 +88,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return static::findOne($id);
     }
 
-    public static function findByUsername($email){
-        return static::find(['email' => $email])->one();
-        //throw new Exception("Unsupported operation exception");
-        
+    public static function findByUsername($fb_id){
+        return static::find(['fb_id' => $fb_id])->one();
     }
 
     public static function findIdentityByAccessToken($token, $type = null)
